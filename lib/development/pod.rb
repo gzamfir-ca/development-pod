@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "development/pod/version"
+require_relative "pod/version"
 
 module Development
   # This class provides a simple ping/pong service.
