@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "pod/version"
-
 module Development
-  # This class provides a simple ping/pong service.
+  # provides utilities implementation
   class Pod
     def self.ping
       "pong"
