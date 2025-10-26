@@ -78,9 +78,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (>= 2.7.2)
   development-pod!
   irb
   rake (~> 13.0)
+  rdoc
   rspec (~> 3.0)
   rubocop (~> 1.21)
 
