@@ -5,7 +5,7 @@ RSpec.describe Development::Pod do
     expect(Development::Pod::VERSION).not_to be nil
   end
 
-  it "does something useful" do
+  it "does reply with pong" do
     expect(Development::Pod.ping).to eq("pong")
   end
 end

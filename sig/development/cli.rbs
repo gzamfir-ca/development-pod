@@ -1,0 +1,7 @@
+module Development
+  class CLI
+    def version: -> untyped
+
+    def ping: -> untyped
+  end
+end

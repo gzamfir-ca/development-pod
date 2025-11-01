@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "development/cli"
 require_relative "development/pod"
 require_relative "development/pod/version"
 
+# define system-wide utilities
 def reload!(print: false)
   root_dir = File.expand_path("..", __dir__ || Dir.pwd)
   reload_dirs = %w[lib]

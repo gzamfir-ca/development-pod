@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     development-pod (0.1.0)
+      thor (~> 1.4)
 
 GEM
   remote: https://rubygems.org/
@@ -68,6 +69,7 @@ GEM
       prism (~> 1.4)
     ruby-progressbar (1.13.0)
     stringio (3.1.7)
+    thor (1.4.0)
     tsort (0.2.0)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
