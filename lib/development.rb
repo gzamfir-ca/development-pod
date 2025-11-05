@@ -32,8 +32,9 @@ def reload!(print: true)
 end
 
 def system!(*args, print: true)
-  command = Shellwords.join(args)
-  system("/bin/bash", "-c", command, exception: true)
+  cmd = Shellwords.join(args)
+  puts "executing: #{cmd}" if print
+  system("/bin/bash", "-c", cmd, exception: true)
 rescue RuntimeError => e
   puts "command run failed: #{e.message}" if print
 rescue SystemCallError => e
