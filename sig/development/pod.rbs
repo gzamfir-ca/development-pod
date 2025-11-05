@@ -2,6 +2,8 @@ module Development
   class Pod
     VERSION: String
 
-    def self.ping: -> untyped
+    def ping: -> String
+
+    def version: -> String
   end
 end

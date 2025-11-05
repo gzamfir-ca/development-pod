@@ -1,7 +1,11 @@
 module Development
   class CLI
-    def version: -> untyped
+    @pod: Pod
 
     def ping: -> untyped
+
+    def pod: -> Pod
+
+    def version: -> untyped
   end
 end

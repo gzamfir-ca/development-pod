@@ -8,13 +8,19 @@ module Development
     desc "version", "prints version number"
 
     def version
-      puts Development::Pod::VERSION
+      puts pod.version
     end
 
     desc "ping", "provides a test reply"
 
     def ping
-      puts Development::Pod.ping
+      puts pod.ping
+    end
+
+    no_commands do
+      def pod
+        @pod ||= Pod.new
+      end
     end
   end
 end
