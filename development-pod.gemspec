@@ -30,11 +30,16 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", ">= 2.7.2"
-  spec.add_development_dependency "irb"
-  spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rdoc"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "rubocop", "~> 1.21"
+  spec.add_development_dependency "date", ">= 3.5.0"
+  spec.add_development_dependency "erb", ">= 5.1.3"
+  spec.add_development_dependency "irb", ">= 1.15.3"
+  spec.add_development_dependency "json", ">= 2.15.2"
+  spec.add_development_dependency "parser", ">= 3.3.10.0"
+  spec.add_development_dependency "rake", ">= 13.3.1"
+  spec.add_development_dependency "rdoc", ">= 6.15.1"
+  spec.add_development_dependency "rspec", ">= 3.13.2"
+  spec.add_development_dependency "rspec-mocks", ">= 3.13.7"
+  spec.add_development_dependency "rubocop", ">= 1.81.7"
 
-  spec.add_dependency "thor", "~> 1.4"
+  spec.add_dependency "thor", ">= 1.4.0"
 end
