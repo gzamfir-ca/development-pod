@@ -2,7 +2,13 @@ module Development
   class Pod
     VERSION: String
 
+    def create: -> String
+
+    def deploy: -> String
+
     def ping: -> String
+
+    def update: -> String
 
     def version: -> String
   end

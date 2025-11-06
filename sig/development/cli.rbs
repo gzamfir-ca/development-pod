@@ -1,10 +1,16 @@
 module Development
   class CLI
-    @pod: Pod
+    def self.exit_on_failure?: -> bool
+
+    def create: -> untyped
+
+    def deploy: -> untyped
+
+    def help: -> untyped
 
     def ping: -> untyped
 
-    def pod: -> Pod
+    def update: -> untyped
 
     def version: -> untyped
   end
