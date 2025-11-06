@@ -1,6 +1,6 @@
 # Development::Pod
 
-A development pod for various tools and utilities.
+A runtime pod providing a variety of development facilities.
 
 ## Installation
 
