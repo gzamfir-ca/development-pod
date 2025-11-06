@@ -78,10 +78,10 @@ module Development
   end
 
   def self.runtime_class
-    class_name = @profile["runtime"]
-    return Pod if class_name.nil? || class_name.empty?
+    runtime_name = @profile["runtime"]
+    return Pod if runtime_name.nil? || runtime_name.empty?
 
-    Object.const_get("#{Development.name}::#{class_name}")
+    Object.const_get("#{Development.name}::#{runtime_name.capitalize}Pod")
   rescue NameError => e
     puts "runtime not found: #{e.message}"
     Pod
