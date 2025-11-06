@@ -2,4 +2,5 @@
 # frozen_string_literal: true
 
 require "development"
+Development.setup
 Development::CLI.start(ARGV)

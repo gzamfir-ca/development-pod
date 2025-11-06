@@ -1,0 +1,12 @@
+module Development
+  CONF_PATH: String
+
+  self.@profile: untyped
+  self.@runtime: Pod
+
+  def self.setup: -> untyped
+
+  def self.runtime_class: -> Class
+
+  def self.runtime: -> Pod
+end
