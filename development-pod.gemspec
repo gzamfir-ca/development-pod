@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "date", ">= 3.5.0"
   spec.add_development_dependency "erb", ">= 5.1.3"
   spec.add_development_dependency "irb", ">= 1.15.3"
-  spec.add_development_dependency "json", ">= 2.15.2"
+  spec.add_development_dependency "json", ">= 2.16.0"
   spec.add_development_dependency "parser", ">= 3.3.10.0"
   spec.add_development_dependency "rake", ">= 13.3.1"
   spec.add_development_dependency "rdoc", ">= 6.15.1"
