@@ -4,11 +4,11 @@ module Development
   # provides utilities implementation
   class Pod
     def create
-      "create not implemented for #{self.class.name}"
+      "#{self.class.name}:#{__method__} not implemented!"
     end
 
     def deploy
-      "deploy not implemented for #{self.class.name}"
+      "#{self.class.name}:#{__method__} not implemented!"
     end
 
     def ping
@@ -16,7 +16,7 @@ module Development
     end
 
     def update
-      "update not implemented for #{self.class.name}"
+      "#{self.class.name}:#{__method__} not implemented!"
     end
 
     def version

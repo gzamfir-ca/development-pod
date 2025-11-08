@@ -4,6 +4,8 @@ module Development
   self.@profile: untyped
   self.@runtime: Pod
 
+  def self.options: -> untyped
+
   def self.setup: -> untyped
 
   def self.runtime_class: -> Class

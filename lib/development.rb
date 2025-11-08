@@ -73,8 +73,11 @@ end
 module Development
   CONF_PATH = Pathname.new(Dir.pwd).join("./pod.yaml").expand_path.to_s
 
-  def self.setup
-    @profile = upload!(CONF_PATH, print: false)
+  def self.options
+    @profile["options"] || {}
+  rescue NameError => e
+    puts "options not found: #{e.message}"
+    {}
   end
 
   def self.runtime_class
@@ -89,5 +92,9 @@ module Development
 
   def self.runtime
     @runtime ||= runtime_class.new
+  end
+
+  def self.setup
+    @profile = upload!(CONF_PATH, print: false)
   end
 end
