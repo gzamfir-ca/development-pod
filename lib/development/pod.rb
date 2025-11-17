@@ -12,7 +12,7 @@ module Development
     end
 
     def ping
-      "pong"
+      Pathname.new(data_path(Development::GEM_NAME)).join("ping").read.strip
     end
 
     def update

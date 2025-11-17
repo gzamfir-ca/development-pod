@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "development"
 require "development/pod"
 
 RSpec.configure do |config|

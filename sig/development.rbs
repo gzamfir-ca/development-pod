@@ -1,5 +1,6 @@
 module Development
   CONF_PATH: String
+  GEM_NAME: String
 
   self.@profile: untyped
   self.@runtime: Pod

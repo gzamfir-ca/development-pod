@@ -5,10 +5,16 @@ require_relative "development/pod"
 require_relative "development/pod/java_pod"
 require_relative "development/pod/version"
 require "pathname"
+require "rubygems"
 require "shellwords"
 require "yaml"
 
 # define helper methods
+def data_path(gem_name)
+  gem_spec = Gem::Specification.find_by_name(gem_name)
+  File.join(gem_spec.full_gem_path, "data")
+end
+
 def load_file(file)
   load file
 rescue LoadError => e
@@ -47,10 +53,10 @@ end
 
 # define system-wide utilities
 def reload!(print: true)
-  root_dir = File.expand_path("..", Dir.pwd)
+  path = File.expand_path("..", __dir__ || Dir.pwd)
   reload_dirs = %w[lib]
   reload_dirs.each do |dir|
-    Dir["#{root_dir}/#{dir}/**/*.rb"].each do |file|
+    Dir["#{path}/#{dir}/**/*.rb"].each do |file|
       puts "#{Object.name}:#{__method__} reloading: #{file}" if print
       load_file(file)
     end
@@ -72,6 +78,7 @@ end
 # provides development-related utilities
 module Development
   CONF_PATH = Pathname.new(Dir.pwd).join("./pod.yaml").expand_path.to_s
+  GEM_NAME = Gem.loaded_specs["development-pod"].name
 
   def self.options
     @profile["options"] || {}
