@@ -51,7 +51,7 @@ def reload!(print: true)
   reload_dirs = %w[lib]
   reload_dirs.each do |dir|
     Dir["#{root_dir}/#{dir}/**/*.rb"].each do |file|
-      puts "reloading: #{file}" if print
+      puts "#{Object.name}:#{__method__} reloading: #{file}" if print
       load_file(file)
     end
   end
@@ -60,12 +60,12 @@ end
 
 def system!(*args, print: true)
   cmd = Shellwords.join(args)
-  puts "executing: #{cmd}" if print
+  puts "#{Object.name}:#{__method__} executing: #{cmd}" if print
   shell_cmd(cmd)
 end
 
 def upload!(file, print: true)
-  puts "uploading: #{file}" if print
+  puts "#{Object.name}:#{__method__} uploading: #{file}" if print
   load_yaml(file)
 end
 
@@ -95,6 +95,6 @@ module Development
   end
 
   def self.setup
-    @profile = upload!(CONF_PATH, print: false)
+    @profile = upload!(CONF_PATH)
   end
 end
