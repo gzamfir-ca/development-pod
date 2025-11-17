@@ -9,17 +9,20 @@ module Development
       true
     end
 
+    def self.start(given_args = ARGV, config = {})
+      Development.setup
+      super
+    end
+
     desc "create", "creates a runtime pod"
 
     def create
-      Development.setup
       puts Development.runtime.create
     end
 
     desc "deploy", "deploys a runtime pod"
 
     def deploy
-      Development.setup
       puts Development.runtime.deploy
     end
 
@@ -38,7 +41,6 @@ module Development
     desc "update", "updates a runtime pod"
 
     def update
-      Development.setup
       puts Development.runtime.update
     end
 

@@ -2,6 +2,8 @@ module Development
   class CLI
     def self.exit_on_failure?: -> bool
 
+    def self.start: -> untyped
+
     def create: -> untyped
 
     def deploy: -> untyped
