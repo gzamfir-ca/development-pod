@@ -12,7 +12,12 @@ module Development
     end
 
     def ping
-      Pathname.new(data_path(Development::GEM_NAME)).join("ping").read.strip
+      data_path = Development.data_path
+      raise "data_path is nil" if data_path.nil?
+
+      data_path.join("ping").read.strip
+    rescue StandardError => e
+      "#{self.class.name}:#{__method__} failed: #{e.message}"
     end
 
     def update

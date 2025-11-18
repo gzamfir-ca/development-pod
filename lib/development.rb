@@ -10,19 +10,8 @@ require "shellwords"
 require "yaml"
 
 # define helper methods
-def data_path(gem_name)
-  gem_spec = Gem::Specification.find_by_name(gem_name)
-  File.join(gem_spec.full_gem_path, "data")
-end
-
 def load_file(file)
   load file
-rescue LoadError => e
-  puts "loading file failed: #{e.message}"
-  nil
-rescue SyntaxError => e
-  puts "loading file failed: #{e.message}"
-  nil
 rescue StandardError => e
   puts "loading file failed: #{e.message}"
   nil
@@ -30,12 +19,6 @@ end
 
 def load_yaml(file)
   YAML.safe_load_file(file, permitted_classes: [Time])
-rescue Psych::SyntaxError => e
-  puts "loading yaml failed: #{e.message}"
-  nil
-rescue Psych::DisallowedClass => e
-  puts "loading yaml failed: #{e.message}"
-  nil
 rescue StandardError => e
   puts "loading yaml failed: #{e.message}"
   nil
@@ -79,6 +62,14 @@ end
 module Development
   CONF_PATH = Pathname.new(Dir.pwd).join("./pod.yaml").expand_path.to_s
   GEM_NAME = Gem.loaded_specs["development-pod"].name
+
+  def self.data_path
+    gem_spec = Gem::Specification.find_by_name(GEM_NAME)
+    Pathname.new(File.join(gem_spec.full_gem_path, "data")).expand_path
+  rescue StandardError => e
+    puts "system path failed: #{e.message}"
+    nil
+  end
 
   def self.options
     @profile["options"] || {}
