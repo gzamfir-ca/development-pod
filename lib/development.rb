@@ -26,9 +26,7 @@ end
 
 def shell_cmd(cmd)
   system("/bin/bash", "-c", cmd, exception: true)
-rescue RuntimeError => e
-  puts "command run failed: #{e.message}"
-  nil
+  Process.last_status&.exitstatus
 rescue SystemCallError => e
   puts "system call failed: #{e.message}"
   nil
@@ -50,7 +48,7 @@ end
 def system!(*args, print: true)
   cmd = Shellwords.join(args)
   puts "#{Object.name}:#{__method__} executing: #{cmd}" if print
-  shell_cmd(cmd)
+  shell_cmd(cmd)&.zero? || false
 end
 
 def upload!(file, print: true)

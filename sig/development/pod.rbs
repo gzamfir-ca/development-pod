@@ -8,6 +8,8 @@ module Development
 
     def ping: -> String
 
+    def run_all: (*Array[String] toolset) -> bool
+
     def update: -> String
 
     def version: -> String

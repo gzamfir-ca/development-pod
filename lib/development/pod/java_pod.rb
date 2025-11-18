@@ -11,20 +11,23 @@ module Development
           tool.push value.to_s unless value.nil? || value.to_s.empty?
         end
       end
-      system!(*tool)
-      "#{self.class.name}:#{__method__} completed!"
+      toolset = [tool]
+      all_ok = run_all(*toolset)
+      "#{self.class.name}:#{__method__} #{all_ok ? "succeeded!" : "failed!"}"
     end
 
     def deploy
       tool = %w[gradle run]
-      system!(*tool)
-      "#{self.class.name}:#{__method__} completed!"
+      toolset = [tool]
+      all_ok = run_all(*toolset)
+      "#{self.class.name}:#{__method__} #{all_ok ? "succeeded!" : "failed!"}"
     end
 
     def update
       tool = %w[gradle test --continuous]
-      system!(*tool)
-      "#{self.class.name}:#{__method__} completed!"
+      toolset = [tool]
+      all_ok = run_all(*toolset)
+      "#{self.class.name}:#{__method__} #{all_ok ? "succeeded!" : "failed!"}"
     end
   end
 end

@@ -3,6 +3,10 @@
 module Development
   # provides utilities implementation
   class Pod
+    def run_all(*toolset)
+      toolset.all? { |tool| system!(*tool) }
+    end
+
     def create
       "#{self.class.name}:#{__method__} not implemented!"
     end
