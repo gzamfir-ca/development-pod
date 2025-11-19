@@ -13,14 +13,14 @@ require "yaml"
 def load_file(file)
   load file
 rescue StandardError => e
-  puts "loading file failed: #{e.message}"
+  puts "#{Object.name}:#{__method__} loading file failed: #{e.message}"
   nil
 end
 
 def load_yaml(file)
   YAML.safe_load_file(file, permitted_classes: [Time])
 rescue StandardError => e
-  puts "loading yaml failed: #{e.message}"
+  puts "#{Object.name}:#{__method__} loading yaml failed: #{e.message}"
   nil
 end
 
@@ -28,7 +28,7 @@ def shell_cmd(cmd)
   system("/bin/bash", "-c", cmd, exception: true)
   Process.last_status&.exitstatus
 rescue SystemCallError => e
-  puts "system call failed: #{e.message}"
+  puts "#{Object.name}:#{__method__} system call failed: #{e.message}"
   nil
 end
 
@@ -58,21 +58,26 @@ end
 
 # provides development-related utilities
 module Development
-  CONF_PATH = Pathname.new(Dir.pwd).join("./pod.yaml").expand_path.to_s
+  CFG_NAME = "pod.yaml"
+  CFG_PATH = Pathname.new(Dir.pwd).join(CFG_NAME.to_s).expand_path.to_s
   GEM_NAME = Gem.loaded_specs["development-pod"].name
+
+  def self.configured?
+    File.exist?(CFG_NAME)
+  end
 
   def self.data_path
     gem_spec = Gem::Specification.find_by_name(GEM_NAME)
     Pathname.new(File.join(gem_spec.full_gem_path, "data")).expand_path
   rescue StandardError => e
-    puts "system path failed: #{e.message}"
+    puts "#{name}:#{__method__} system path failed: #{e.message}"
     nil
   end
 
   def self.options
     @profile["options"] || {}
   rescue NameError => e
-    puts "options not found: #{e.message}"
+    puts "#{name}:#{__method__} options not found: #{e.message}"
     {}
   end
 
@@ -82,7 +87,7 @@ module Development
 
     Object.const_get("#{Development.name}::#{runtime_name.capitalize}Pod")
   rescue NameError => e
-    puts "runtime not found: #{e.message}"
+    puts "#{name}:#{__method__} runtime not found: #{e.message}"
     Pod
   end
 
@@ -91,6 +96,6 @@ module Development
   end
 
   def self.setup
-    @profile = upload!(CONF_PATH)
+    @profile = upload!(CFG_PATH)
   end
 end

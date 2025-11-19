@@ -6,6 +6,8 @@ module Development
 
     def deploy: -> String
 
+    def append_options: (*Array[String] tool) -> untyped
+
     def ping: -> String
 
     def run_all: (*Array[String] toolset) -> bool
