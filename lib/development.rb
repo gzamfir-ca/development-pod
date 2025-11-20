@@ -58,38 +58,58 @@ end
 
 # provides development-related utilities
 module Development
-  CFG_NAME = "pod.yaml"
   DEV_ROOT = "Developer"
+  CFG_FILE = "pod.yaml"
   SRC_FILE = "src.yaml"
+  OPT_NAME = "options"
+  RUN_TIME = "runtime"
+  GEM_DATA = "data"
+  POD_NAME = "Pod"
   GEM_NAME = Gem.loaded_specs["development-pod"].name
-  CFG_PATH = Pathname.new(Dir.pwd).join(CFG_NAME.to_s).expand_path.to_s
-  DEV_PATH = Pathname.new(Dir.home).join(DEV_ROOT.to_s).expand_path.to_s
+  CFG_PATH = Pathname.new(Dir.pwd).join(self::CFG_FILE).expand_path.to_s
+  DEV_PATH = Pathname.new(Dir.home).join(self::DEV_ROOT).expand_path.to_s
 
+  # module private methods
   def self.configured?
-    File.exist?(CFG_NAME)
+    File.exist?(self::CFG_FILE)
   end
 
   def self.data_path
-    gem_spec = Gem::Specification.find_by_name(GEM_NAME)
-    File.join(gem_spec.full_gem_path, "data")
+    gem_spec = Gem::Specification.find_by_name(self::GEM_NAME)
+    File.join(gem_spec.full_gem_path, self::GEM_DATA)
   rescue StandardError => e
     puts "#{name}:#{__method__} system path failed: #{e.message}"
     "."
   end
 
+  def self.protected?
+    File.exist?(self::SRC_FILE)
+  end
+
+  def self.runtime_class
+    runtime_name = @profile[self::RUN_TIME]
+    return Pod if runtime_name.nil? || runtime_name.empty?
+
+    Object.const_get("#{Development.name}::#{runtime_name.capitalize}#{self::POD_NAME}")
+  rescue NameError => e
+    puts "#{name}:#{__method__} runtime not found: #{e.message}"
+    Pod
+  end
+
+  def self.secured?
+    File.expand_path(Dir.pwd).start_with?(self::DEV_PATH)
+  end
+
+  # module public methods
   def self.operational?
     configured? && secured? && !protected?
   end
 
   def self.options
-    @profile["options"] || {}
+    @profile[self::OPT_NAME] || {}
   rescue NameError => e
     puts "#{name}:#{__method__} options not found: #{e.message}"
     {}
-  end
-
-  def self.protected?
-    File.exist?(SRC_FILE)
   end
 
   def self.read_data(file)
@@ -100,25 +120,11 @@ module Development
     ""
   end
 
-  def self.runtime_class
-    runtime_name = @profile["runtime"]
-    return Pod if runtime_name.nil? || runtime_name.empty?
-
-    Object.const_get("#{Development.name}::#{runtime_name.capitalize}Pod")
-  rescue NameError => e
-    puts "#{name}:#{__method__} runtime not found: #{e.message}"
-    Pod
-  end
-
   def self.runtime
     @runtime ||= runtime_class.new
   end
 
-  def self.secured?
-    File.expand_path(Dir.pwd).start_with?(DEV_PATH)
-  end
-
   def self.setup
-    @profile = upload!(CFG_PATH)
+    @profile = upload!(self::CFG_PATH)
   end
 end

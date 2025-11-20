@@ -1,7 +1,11 @@
 module Development
-  CFG_NAME: String
   DEV_ROOT: String
+  CFG_FILE: String
   SRC_FILE: String
+  OPT_NAME: String
+  RUN_TIME: String
+  GEM_DATA: String
+  POD_NAME: String
   GEM_NAME: String
   CFG_PATH: String
   DEV_PATH: String
@@ -11,11 +15,11 @@ module Development
 
   def self.configured?: -> bool
 
-  def self.data_path: -> untyped
+  def self.data_path: -> String
 
   def self.operational?: -> bool
 
-  def self.options: -> untyped
+  def self.options: -> hash[untyped, untyped]
 
   def self.protected?: -> bool
 

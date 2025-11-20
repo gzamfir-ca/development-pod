@@ -3,6 +3,7 @@
 module Development
   # provides java specific implementation
   class JavaPod < Pod
+    # class public methods
     def create
       return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?
 
