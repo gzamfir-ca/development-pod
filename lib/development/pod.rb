@@ -29,8 +29,6 @@ module Development
     end
 
     def ping
-      return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?
-
       Development.read_data(self.class::ECHO_FILE)
     end
 
@@ -47,9 +45,7 @@ module Development
 
     def safe_remove
       Dir.children(".").each do |item|
-        next if item == "pod.yaml"
-
-        FileUtils.rm_rf item unless Development.protected?
+        FileUtils.rm_rf item unless item == Development::CFG_NAME
       end
       true
     rescue StandardError => e
@@ -64,8 +60,6 @@ module Development
     end
 
     def version
-      return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?
-
       self.class::VERSION
     end
   end

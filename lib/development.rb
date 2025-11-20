@@ -78,7 +78,7 @@ module Development
   end
 
   def self.operational?
-    configured? && secured?
+    configured? && secured? && !protected?
   end
 
   def self.options
