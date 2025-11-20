@@ -38,6 +38,12 @@ module Development
       puts Development.runtime.ping
     end
 
+    desc "remove", "removes a runtime pod"
+
+    def remove
+      puts Development.runtime.remove
+    end
+
     desc "update", "updates a runtime pod"
 
     def update

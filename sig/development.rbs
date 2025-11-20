@@ -1,7 +1,10 @@
 module Development
   CFG_NAME: String
-  CFG_PATH: String
+  DEV_ROOT: String
+  SRC_FILE: String
   GEM_NAME: String
+  CFG_PATH: String
+  DEV_PATH: String
 
   self.@profile: untyped
   self.@runtime: Pod
@@ -10,7 +13,15 @@ module Development
 
   def self.data_path: -> untyped
 
+  def self.operational?: -> bool
+
   def self.options: -> untyped
+
+  def self.protected?: -> bool
+
+  def self.read_data: (String) -> String
+
+  def self.secured?: -> bool
 
   def self.setup: -> untyped
 

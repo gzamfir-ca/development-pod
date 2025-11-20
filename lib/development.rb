@@ -59,8 +59,11 @@ end
 # provides development-related utilities
 module Development
   CFG_NAME = "pod.yaml"
-  CFG_PATH = Pathname.new(Dir.pwd).join(CFG_NAME.to_s).expand_path.to_s
+  DEV_ROOT = "Developer"
+  SRC_FILE = "src.yaml"
   GEM_NAME = Gem.loaded_specs["development-pod"].name
+  CFG_PATH = Pathname.new(Dir.pwd).join(CFG_NAME.to_s).expand_path.to_s
+  DEV_PATH = Pathname.new(Dir.home).join(DEV_ROOT.to_s).expand_path.to_s
 
   def self.configured?
     File.exist?(CFG_NAME)
@@ -68,10 +71,14 @@ module Development
 
   def self.data_path
     gem_spec = Gem::Specification.find_by_name(GEM_NAME)
-    Pathname.new(File.join(gem_spec.full_gem_path, "data")).expand_path
+    File.join(gem_spec.full_gem_path, "data")
   rescue StandardError => e
     puts "#{name}:#{__method__} system path failed: #{e.message}"
-    nil
+    "."
+  end
+
+  def self.operational?
+    configured? && secured?
   end
 
   def self.options
@@ -79,6 +86,18 @@ module Development
   rescue NameError => e
     puts "#{name}:#{__method__} options not found: #{e.message}"
     {}
+  end
+
+  def self.protected?
+    File.exist?(SRC_FILE)
+  end
+
+  def self.read_data(file)
+    path = Pathname.new(data_path).expand_path
+    path.join(file).read.strip
+  rescue StandardError => e
+    puts "#{name}:#{__method__} reading data failed: #{e.message}"
+    ""
   end
 
   def self.runtime_class
@@ -93,6 +112,10 @@ module Development
 
   def self.runtime
     @runtime ||= runtime_class.new
+  end
+
+  def self.secured?
+    File.expand_path(Dir.pwd).start_with?(DEV_PATH)
   end
 
   def self.setup

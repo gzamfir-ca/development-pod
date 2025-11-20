@@ -1,5 +1,6 @@
 module Development
   class Pod
+    ECHO_FILE: String
     VERSION: String
 
     def create: -> String
@@ -10,7 +11,11 @@ module Development
 
     def ping: -> String
 
+    def remove: -> String
+
     def run_all: (*Array[String] toolset) -> bool
+
+    def safe_remove: -> bool
 
     def update: -> String
 

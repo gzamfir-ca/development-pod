@@ -12,6 +12,8 @@ module Development
 
     def ping: -> untyped
 
+    def remove: -> untyped
+
     def update: -> untyped
 
     def version: -> untyped
