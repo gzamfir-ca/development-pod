@@ -7,7 +7,7 @@ module Development
     def create
       return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?
 
-      tool = %w[gradle init].tap { |t| append_options(t) }
+      tool = %w[gradle init --console verbose].tap { |t| append_options(t) }
       res_ok = run_all(tool)
       "#{self.class.name}:#{__method__} #{res_ok ? "succeeded!" : "failed!"}"
     end
@@ -15,7 +15,7 @@ module Development
     def deploy
       return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?
 
-      tool = %w[gradle run]
+      tool = %w[gradle run --console verbose]
       res_ok = run_all(tool)
       "#{self.class.name}:#{__method__} #{res_ok ? "succeeded!" : "failed!"}"
     end
@@ -23,7 +23,7 @@ module Development
     def update
       return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?
 
-      tool = %w[gradle test --continuous]
+      tool = %w[gradle test --continuous --console verbose]
       res_ok = run_all(tool)
       "#{self.class.name}:#{__method__} #{res_ok ? "succeeded!" : "failed!"}"
     end

@@ -10,7 +10,7 @@ module Development
     # class private methods
     def safe_remove
       Dir.children(".").each do |item|
-        FileUtils.rm_rf item unless item == Development::CFG_FILE
+        FileUtils.rm_rf(item, verbose: true, secure: true) unless item == Development::CFG_FILE
       end
       true
     rescue StandardError => e
