@@ -17,19 +17,20 @@ module Development
 
   def self.data_path: -> String
 
+  def self.protected?: -> bool
+
+  def self.runtime_class: -> Class
+
+  def self.secured?: -> bool
+
   def self.operational?: -> bool
 
   def self.options: -> hash[untyped, untyped]
 
-  def self.protected?: -> bool
-
   def self.read_data: (String) -> String
 
-  def self.secured?: -> bool
+  def self.runtime: -> Pod
 
   def self.setup: -> untyped
 
-  def self.runtime_class: -> Class
-
-  def self.runtime: -> Pod
 end

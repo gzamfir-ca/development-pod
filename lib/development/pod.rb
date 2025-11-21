@@ -28,6 +28,15 @@ module Development
       end
     end
 
+    def bulk_copy(src_dir, dest_dir)
+      src_paths = Dir.children(src_dir).map { |f| File.join(src_dir, f) }
+      FileUtils.cp_r(src_paths, dest_dir, verbose: true, preserve: true)
+      true
+    rescue StandardError => e
+      puts "#{self.class.name}:#{__method__} copy_r call failed: #{e.message}"
+      false
+    end
+
     def run_all(*toolset)
       toolset.all? { |tool| system!(*tool) }
     end

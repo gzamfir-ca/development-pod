@@ -3,19 +3,21 @@ module Development
     ECHO_FILE: String
     VERSION: String
 
+    def safe_remove: -> bool
+
+    def append_options: (*Array[String] tool) -> untyped
+
+    def bulk_copy: -> bool
+
+    def run_all: (*Array[String] toolset) -> bool
+
     def create: -> String
 
     def deploy: -> String
 
-    def append_options: (*Array[String] tool) -> untyped
-
     def ping: -> String
 
     def remove: -> String
-
-    def run_all: (*Array[String] toolset) -> bool
-
-    def safe_remove: -> bool
 
     def update: -> String
 
