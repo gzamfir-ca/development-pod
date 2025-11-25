@@ -59,8 +59,8 @@ end
 # provides development-related utilities
 module Development
   DEV_ROOT = "Developer"
-  CFG_FILE = "pod.yaml"
-  SRC_FILE = "src.yaml"
+  CFG_FILE = "pod.yml"
+  SRC_FILE = "src.yml"
   OPT_NAME = "options"
   RUN_TIME = "runtime"
   GEM_DATA = "data"
