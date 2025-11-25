@@ -4,7 +4,6 @@
 # setup gem environment
 require "bundler/setup"
 require "development"
-include Development
 
 # setup IRB
 require "irb"
