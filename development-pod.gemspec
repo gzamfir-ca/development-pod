@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "json", ">= 2.16.0"
   spec.add_development_dependency "parser", ">= 3.3.10.0"
   spec.add_development_dependency "rake", ">= 13.3.1"
-  spec.add_development_dependency "rdoc", ">= 6.15.1"
+  spec.add_development_dependency "rdoc", ">= 6.16.0"
   spec.add_development_dependency "reline", ">= 0.6.3"
   spec.add_development_dependency "rspec", ">= 3.13.2"
   spec.add_development_dependency "rspec-mocks", ">= 3.13.7"
