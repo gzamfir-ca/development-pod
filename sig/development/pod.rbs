@@ -7,9 +7,9 @@ module Development
 
     def append_options: (Array[String] tool, ?sep: String) -> untyped
 
-    def item_copy: (String src_dir, String dest_dir) -> bool
+    def copy_item: (String src_dir, String dest_dir) -> bool
 
-    def item_move: (String src_dir, String dest_dir) -> bool
+    def move_item: (String src_dir, String dest_dir) -> bool
 
     def create: -> String
 

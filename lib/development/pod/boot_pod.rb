@@ -12,7 +12,7 @@ module Development
       res_ok = system!(tool1, tool2)
       items = %w[.gitattributes .gitignore gradle gradlew gradlew.bat HELP.md settings.gradle]
       items.each do |item|
-        res_ok = item_move("./app/#{item}", ".") || res_ok
+        res_ok = move_item("./app/#{item}", ".") && res_ok
       end
       "#{self.class.name}:#{__method__} #{res_ok ? "succeeded!" : "failed!"}"
     end
