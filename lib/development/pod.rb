@@ -19,10 +19,10 @@ module Development
     end
 
     # class protected methods
-    def append_options(tool)
+    def append_options(tool, sep: "--")
       Development.options.each do |item|
         item.each do |key, value|
-          tool.push "--#{key}"
+          tool.push "#{sep}#{key}"
           tool.push value.to_s unless value.nil? || value.to_s.empty?
         end
       end
