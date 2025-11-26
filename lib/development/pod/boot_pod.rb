@@ -10,6 +10,10 @@ module Development
       tool1 = %w[curl https://start.spring.io/starter.tgz].tap { |t| append_options(t, sep: "-") }
       tool2 = %w[tar -xzvf -]
       res_ok = system!(tool1, tool2)
+      items = %w[.gitattributes .gitignore gradle gradlew gradlew.bat HELP.md settings.gradle]
+      items.each do |item|
+        res_ok = item_move("./app/#{item}", ".") || res_ok
+      end
       "#{self.class.name}:#{__method__} #{res_ok ? "succeeded!" : "failed!"}"
     end
 

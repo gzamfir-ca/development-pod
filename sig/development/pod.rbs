@@ -5,11 +5,11 @@ module Development
 
     def safe_remove: -> bool
 
-    def append_options: (*Array[String] tool) -> untyped
+    def append_options: (Array[String] tool, ?sep: String) -> untyped
 
-    def bulk_copy: -> bool
+    def item_copy: (String src_dir, String dest_dir) -> bool
 
-    def run_all: (*Array[String] toolset) -> bool
+    def item_move: (String src_dir, String dest_dir) -> bool
 
     def create: -> String
 
