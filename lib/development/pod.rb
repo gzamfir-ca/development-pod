@@ -37,10 +37,6 @@ module Development
       false
     end
 
-    def run_all(*toolset)
-      toolset.all? { |tool| system!(*tool) }
-    end
-
     # class public methods
     def create
       return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?

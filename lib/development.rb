@@ -45,10 +45,12 @@ def reload!(print: true)
   true
 end
 
-def system!(*args, print: true)
-  cmd = Shellwords.join(args)
-  puts "#{Object.name}:#{__method__} executing: #{cmd}" if print
-  shell_cmd(cmd)&.zero? || false
+def system!(args1, args2 = nil, print: true)
+  cmd1 = Shellwords.join(args1)
+  cmd2 = Shellwords.join(args2) unless args2.nil? || args2.empty?
+  full_cmd = cmd2 ? "#{cmd1} | #{cmd2}" : cmd1
+  puts "#{Object.name}:#{__method__} executing: #{full_cmd}" if print
+  shell_cmd(full_cmd)&.zero? || false
 end
 
 def upload!(file, print: true)
