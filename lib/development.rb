@@ -2,6 +2,7 @@
 
 require_relative "development/cli"
 require_relative "development/pod"
+require_relative "development/pod/boot_pod"
 require_relative "development/pod/java_pod"
 require_relative "development/pod/version"
 require "pathname"

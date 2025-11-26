@@ -7,7 +7,7 @@ module Development
     def create
       return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?
 
-      tool1 = %w[curl https://start.spring.io/starter.tgz].tap { |t| append_options(t) }
+      tool1 = %w[curl https://start.spring.io/starter.tgz].tap { |t| append_options(t, sep: "-") }
       tool2 = %w[tar -xzvf -]
       res_ok = system!(tool1, tool2)
       "#{self.class.name}:#{__method__} #{res_ok ? "succeeded!" : "failed!"}"
