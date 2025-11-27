@@ -4,6 +4,8 @@ module Development
 
     def patch_data: -> bool
 
+    def patch_file: -> bool
+
     def create: -> String
 
     def deploy: -> String

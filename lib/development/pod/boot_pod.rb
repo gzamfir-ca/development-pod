@@ -25,12 +25,23 @@ module Development
       copy_item(src_dir2, dest_dir2) && res_ok
     end
 
+    def patch_file
+      File.open("settings.gradle", "a") do |f|
+        f.puts "include('app')"
+      end
+      true
+    rescue StandardError => e
+      puts "#{self.class.name}:#{__method__} p_file call failed: #{e.message}"
+      false
+    end
+
     # class public methods
     def create
       return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?
 
       res_ok = fetch_data
       res_ok = patch_data && res_ok
+      res_ok = patch_file && res_ok
       "#{self.class.name}:#{__method__} #{res_ok ? "succeeded!" : "failed!"}"
     end
 
