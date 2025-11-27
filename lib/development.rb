@@ -77,14 +77,6 @@ module Development
     File.exist?(self::CFG_FILE)
   end
 
-  def self.data_path
-    gem_spec = Gem::Specification.find_by_name(self::GEM_NAME)
-    File.join(gem_spec.full_gem_path, self::GEM_DATA)
-  rescue StandardError => e
-    puts "#{name}:#{__method__} system path failed: #{e.message}"
-    "."
-  end
-
   def self.protected?
     File.exist?(self::SRC_FILE)
   end
@@ -104,6 +96,14 @@ module Development
   end
 
   # module public methods
+  def self.data_path
+    gem_spec = Gem::Specification.find_by_name(self::GEM_NAME)
+    File.join(gem_spec.full_gem_path, self::GEM_DATA)
+  rescue StandardError => e
+    puts "#{name}:#{__method__} system path failed: #{e.message}"
+    "."
+  end
+
   def self.operational?
     configured? && secured? && !protected?
   end
