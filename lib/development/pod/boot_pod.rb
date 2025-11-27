@@ -19,8 +19,8 @@ module Development
       path = Pathname.new(Development.data_path).expand_path
       src_dir1 = path.join("boot/main/greeting").to_s
       src_dir2 = path.join("boot/test/greeting").to_s
-      dest_dir1 = "./app/src/main/java/com/example/demo"
-      dest_dir2 = "./app/src/test/java/com/example/demo"
+      dest_dir1 = "./app/src/main/java/com/me/demo"
+      dest_dir2 = "./app/src/test/java/com/me/demo"
       res_ok = copy_item(src_dir1, dest_dir1)
       copy_item(src_dir2, dest_dir2) && res_ok
     end

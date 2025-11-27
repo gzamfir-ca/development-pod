@@ -1,4 +1,4 @@
-package com.example.demo.greeting;
+package com.me.demo.greeting;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
