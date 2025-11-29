@@ -1,0 +1,13 @@
+class Object
+  def load_file: (String file) -> untyped
+
+  def load_yaml: (String file) -> untyped
+
+  def shell_cmd: (String cmd) -> untyped
+
+  def reload!: (?print: bool) -> untyped
+
+  def system!: (Array[String] args1, Array[String] | nil args2, ?print: bool) -> bool
+
+  def upload!: (String file, ?print: bool) -> untyped
+end
