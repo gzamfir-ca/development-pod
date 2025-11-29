@@ -1,0 +1,13 @@
+module Development
+  class JavaPod
+    def fetch_data: -> bool
+
+    def patch_file: -> bool
+
+    def create: -> String
+
+    def deploy: -> String
+
+    def update: -> String
+  end
+end
