@@ -11,7 +11,7 @@ module Development
 
     def patch_file
       lines = File.readlines("settings.gradle")
-      lines.select do |line|
+      lines.select! do |line|
         line.strip.start_with?("include", "rootProject")
       end
       File.open("settings.gradle", "w") { |f| f.puts lines }
