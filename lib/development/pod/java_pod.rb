@@ -23,27 +23,33 @@ module Development
 
     # class public methods
     def create
-      return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?
+      msg = format(FAIL_MSG, self.class.name, __method__)
+      return "#{FAIL_COLOR}#{msg}#{BACK_COLOR}" unless Development.operational?
 
       res_ok = fetch_data
       res_ok = patch_file && res_ok
-      "#{self.class.name}:#{__method__} #{res_ok ? "succeeded!" : "failed!"}"
+      msg = format(test_msg(res_ok), self.class.name, __method__)
+      "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
     end
 
     def deploy
-      return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?
+      msg = format(FAIL_MSG, self.class.name, __method__)
+      return "#{FAIL_COLOR}#{msg}#{BACK_COLOR}" unless Development.operational?
 
       tool = %w[gradle run --console verbose]
       res_ok = system!(tool)
-      "#{self.class.name}:#{__method__} #{res_ok ? "succeeded!" : "failed!"}"
+      msg = format(test_msg(res_ok), self.class.name, __method__)
+      "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
     end
 
     def update
-      return "#{self.class.name}:#{__method__} not allowed!" unless Development.operational?
+      msg = format(FAIL_MSG, self.class.name, __method__)
+      return "#{FAIL_COLOR}#{msg}#{BACK_COLOR}" unless Development.operational?
 
       tool = %w[gradle test --continuous --console verbose]
       res_ok = system!(tool)
-      "#{self.class.name}:#{__method__} #{res_ok ? "succeeded!" : "failed!"}"
+      msg = format(test_msg(res_ok), self.class.name, __method__)
+      "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
     end
   end
 end

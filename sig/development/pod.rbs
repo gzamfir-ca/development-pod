@@ -1,6 +1,12 @@
 module Development
   class Pod
     ECHO_FILE: String
+    BACK_COLOR: String
+    FAIL_COLOR: String
+    PASS_COLOR: String
+    THEN_COLOR: String
+    FAIL_MSG: String
+    THEN_MSG: String
     VERSION: String
 
     def safe_remove: -> bool
@@ -10,6 +16,10 @@ module Development
     def copy_item: (String src_dir, String dest_dir) -> bool
 
     def move_item: (String src_dir, String dest_dir) -> bool
+
+    def test_color: (bool res_ok) -> String
+
+    def test_msg: (bool res_ok) -> String
 
     def create: -> String
 

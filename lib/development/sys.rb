@@ -18,7 +18,7 @@ end
 def shell_cmd(cmd)
   system("/bin/bash", "-c", cmd, exception: true)
   Process.last_status&.exitstatus
-rescue SystemCallError => e
+rescue StandardError => e
   puts "#{Object.name}:#{__method__} system call failed: #{e.message}"
   nil
 end
