@@ -21,16 +21,16 @@ module Development
 
     def test_msg: (bool res_ok) -> String
 
-    def create: -> String
+    def create: -> int
 
-    def deploy: -> String
+    def deploy: -> int
 
-    def ping: -> String
+    def ping: -> int
 
-    def remove: -> String
+    def remove: -> int
 
-    def update: -> String
+    def update: -> int
 
-    def version: -> String
+    def version: -> int
   end
 end

@@ -9,7 +9,7 @@ module Development
     BACK_COLOR = "\e[0m"
     FAIL_COLOR = "\e[1;31m"
     PASS_COLOR = "\e[1;32m"
-    THEN_COLOR = "\e[1;35m"
+    THEN_COLOR = "\e[1;33m"
     FAIL_MSG = "%s:%s not supported!"
     THEN_MSG = "%s:%s not available!"
 
@@ -61,43 +61,64 @@ module Development
     # class public methods
     def create
       msg = format(FAIL_MSG, self.class.name, __method__)
-      return "#{FAIL_COLOR}#{msg}#{BACK_COLOR}" unless Development.operational?
+      unless Development.operational?
+        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
+        return 1
+      end
 
       msg = format(THEN_MSG, self.class.name, __method__)
-      "#{THEN_COLOR}#{msg}#{BACK_COLOR}"
+      puts "#{THEN_COLOR}#{msg}#{BACK_COLOR}"
+      0
     end
 
     def deploy
       msg = format(FAIL_MSG, self.class.name, __method__)
-      return "#{FAIL_COLOR}#{msg}#{BACK_COLOR}" unless Development.operational?
+      unless Development.operational?
+        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
+        return 1
+      end
 
       msg = format(THEN_MSG, self.class.name, __method__)
-      "#{THEN_COLOR}#{msg}#{BACK_COLOR}"
+      puts "#{THEN_COLOR}#{msg}#{BACK_COLOR}"
+      0
     end
 
     def ping
-      Development.read_data(self.class::ECHO_FILE)
+      echo = Development.read_data(self.class::ECHO_FILE)
+      return 1 if echo.nil? || echo.empty?
+
+      puts echo
+      0
     end
 
     def remove
       msg = format(FAIL_MSG, self.class.name, __method__)
-      return "#{FAIL_COLOR}#{msg}#{BACK_COLOR}" unless Development.operational?
+      unless Development.operational?
+        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
+        return 1
+      end
 
       res_ok = safe_remove
       msg = format(test_msg(res_ok), self.class.name, __method__)
-      "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
+      puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
+      res_ok ? 0 : 1
     end
 
     def update
       msg = format(FAIL_MSG, self.class.name, __method__)
-      return "#{FAIL_COLOR}#{msg}#{BACK_COLOR}" unless Development.operational?
+      unless Development.operational?
+        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
+        return 1
+      end
 
       msg = format(THEN_MSG, self.class.name, __method__)
-      "#{THEN_COLOR}#{msg}#{BACK_COLOR}"
+      puts "#{THEN_COLOR}#{msg}#{BACK_COLOR}"
+      0
     end
 
     def version
-      self.class::VERSION
+      puts self.class::VERSION
+      0
     end
   end
 end

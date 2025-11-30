@@ -6,6 +6,6 @@ RSpec.describe Development::Pod do
   end
 
   it "does reply with pong" do
-    expect(Development::Pod.new.ping).to eq("pong")
+    expect(Development.read_data(Development::Pod::ECHO_FILE)).to eq("pong")
   end
 end

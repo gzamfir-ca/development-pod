@@ -35,36 +35,50 @@ module Development
       false
     end
 
+    def setup_core
+      fetch_data && patch_data && patch_file
+    end
+
     # class public methods
     def create
       msg = format(FAIL_MSG, self.class.name, __method__)
-      return "#{FAIL_COLOR}#{msg}#{BACK_COLOR}" unless Development.operational?
+      unless Development.operational?
+        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
+        return 1
+      end
 
-      res_ok = fetch_data
-      res_ok = patch_data && res_ok
-      res_ok = patch_file && res_ok
+      res_ok = setup_core
       msg = format(test_msg(res_ok), self.class.name, __method__)
-      "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
+      puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
+      res_ok ? 0 : 1
     end
 
     def deploy
       msg = format(FAIL_MSG, self.class.name, __method__)
-      return "#{FAIL_COLOR}#{msg}#{BACK_COLOR}" unless Development.operational?
+      unless Development.operational?
+        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
+        return 1
+      end
 
       tool = %w[gradle bootRun --console verbose]
-      res_ok = system!(tool)
+      res_ok = system!(tool, nil)
       msg = format(test_msg(res_ok), self.class.name, __method__)
-      "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
+      puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
+      res_ok ? 0 : 1
     end
 
     def update
       msg = format(FAIL_MSG, self.class.name, __method__)
-      return "#{FAIL_COLOR}#{msg}#{BACK_COLOR}" unless Development.operational?
+      unless Development.operational?
+        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
+        return 1
+      end
 
       tool = %w[gradle test --continuous --console verbose]
-      res_ok = system!(tool)
+      res_ok = system!(tool, nil)
       msg = format(test_msg(res_ok), self.class.name, __method__)
-      "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
+      puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
+      res_ok ? 0 : 1
     end
   end
 end

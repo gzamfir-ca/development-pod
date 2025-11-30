@@ -6,10 +6,12 @@ module Development
 
     def patch_file: -> bool
 
-    def create: -> String
+    def setup_core: -> bool
 
-    def deploy: -> String
+    def create: -> int
 
-    def update: -> String
+    def deploy: -> int
+
+    def update: -> int
   end
 end

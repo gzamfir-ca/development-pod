@@ -5,6 +5,7 @@ require "thor"
 module Development
   # provides CLI implementation
   class CLI < Thor
+    # class private methods
     def self.exit_on_failure?
       true
     end
@@ -14,16 +15,17 @@ module Development
       super
     end
 
+    # class public methods
     desc "create", "creates a runtime pod"
 
     def create
-      puts Development.runtime.create
+      exit Development.runtime.create
     end
 
     desc "deploy", "deploys a runtime pod"
 
     def deploy
-      puts Development.runtime.deploy
+      exit Development.runtime.deploy
     end
 
     desc "help [COMMAND]", "describes cli command"
@@ -35,25 +37,25 @@ module Development
     desc "ping", "provides a test reply"
 
     def ping
-      puts Development.runtime.ping
+      exit Development.runtime.ping
     end
 
     desc "remove", "removes a runtime pod"
 
     def remove
-      puts Development.runtime.remove
+      exit Development.runtime.remove
     end
 
     desc "update", "updates a runtime pod"
 
     def update
-      puts Development.runtime.update
+      exit Development.runtime.update
     end
 
     desc "version", "prints version number"
 
     def version
-      puts Development.runtime.version
+      exit Development.runtime.version
     end
   end
 end

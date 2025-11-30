@@ -36,7 +36,7 @@ def reload!(print: true)
   true
 end
 
-def system!(args1, args2 = nil, print: true)
+def system!(args1, args2, print: true)
   cmd1 = Shellwords.join(args1)
   cmd2 = Shellwords.join(args2) unless args2.nil? || args2.empty?
   full_cmd = cmd2 ? "#{cmd1} | #{cmd2}" : cmd1

@@ -7,7 +7,7 @@ class Object
 
   def reload!: (?print: bool) -> untyped
 
-  def system!: (Array[String] args1, ?args2: Array[String], ?print: bool) -> bool
+  def system!: (Array[String] args1, Array[String]? args2, ?print: bool) -> bool
 
   def upload!: (String file, ?print: bool) -> untyped
 end
