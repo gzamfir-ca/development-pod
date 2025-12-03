@@ -60,8 +60,8 @@ module Development
 
     # class public methods
     def create
-      msg = format(FAIL_MSG, self.class.name, __method__)
       unless Development.operational?
+        msg = format(FAIL_MSG, self.class.name, __method__)
         puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
         return 1
       end
@@ -72,8 +72,8 @@ module Development
     end
 
     def deploy
-      msg = format(FAIL_MSG, self.class.name, __method__)
       unless Development.operational?
+        msg = format(FAIL_MSG, self.class.name, __method__)
         puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
         return 1
       end
@@ -85,15 +85,19 @@ module Development
 
     def ping
       echo = Development.read_data(self.class::ECHO_FILE)
-      return 1 if echo.nil? || echo.empty?
+      if echo.nil? || echo.empty?
+        msg = format(FAIL_MSG, self.class.name, __method__)
+        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
+        return 1
+      end
 
-      puts echo
+      puts "#{PASS_COLOR}#{echo}#{BACK_COLOR}"
       0
     end
 
     def remove
-      msg = format(FAIL_MSG, self.class.name, __method__)
       unless Development.operational?
+        msg = format(FAIL_MSG, self.class.name, __method__)
         puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
         return 1
       end
@@ -105,8 +109,8 @@ module Development
     end
 
     def update
-      msg = format(FAIL_MSG, self.class.name, __method__)
       unless Development.operational?
+        msg = format(FAIL_MSG, self.class.name, __method__)
         puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
         return 1
       end
@@ -117,7 +121,7 @@ module Development
     end
 
     def version
-      puts self.class::VERSION
+      puts "#{PASS_COLOR}#{self.class::VERSION}#{BACK_COLOR}"
       0
     end
   end

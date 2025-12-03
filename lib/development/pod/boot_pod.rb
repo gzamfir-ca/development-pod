@@ -41,8 +41,8 @@ module Development
 
     # class public methods
     def create
-      msg = format(FAIL_MSG, self.class.name, __method__)
       unless Development.operational?
+        msg = format(FAIL_MSG, self.class.name, __method__)
         puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
         return 1
       end
@@ -54,8 +54,8 @@ module Development
     end
 
     def deploy
-      msg = format(FAIL_MSG, self.class.name, __method__)
       unless Development.operational?
+        msg = format(FAIL_MSG, self.class.name, __method__)
         puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
         return 1
       end
@@ -68,8 +68,8 @@ module Development
     end
 
     def update
-      msg = format(FAIL_MSG, self.class.name, __method__)
       unless Development.operational?
+        msg = format(FAIL_MSG, self.class.name, __method__)
         puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
         return 1
       end
