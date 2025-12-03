@@ -85,9 +85,10 @@ module Development
 
     def ping
       echo = Development.read_data(self.class::ECHO_FILE)
-      if echo.nil? || echo.empty?
-        msg = format(FAIL_MSG, self.class.name, __method__)
-        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
+      echo_fail = echo.nil? || echo.empty?
+      if echo_fail
+        msg = format(test_msg(!echo_fail), self.class.name, __method__)
+        puts "#{test_color(!echo_fail)}#{msg}#{BACK_COLOR}"
         return 1
       end
 
