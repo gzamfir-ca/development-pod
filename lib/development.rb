@@ -16,6 +16,8 @@ module Development
   SRC_FILE = "src.yml"
   OPT_NAME = "options"
   RUN_TIME = "runtime"
+  TOP_TIME = "created_at"
+  TOP_USER = "updated_by"
   GEM_DATA = "data"
   POD_NAME = "Pod"
   GEM_NAME = Gem.loaded_specs["development-pod"].name
@@ -47,7 +49,7 @@ module Development
 
   # module public methods
   def self.append_timestamp
-    @profile["created_at"] = Time.now
+    @profile[self::TOP_TIME] = Time.now
     retain!(self::CFG_PATH, @profile)
   end
 
@@ -57,6 +59,10 @@ module Development
   rescue StandardError => e
     puts "#{name}:#{__method__} system path failed: #{e.message}"
     "."
+  end
+
+  def self.item?(item)
+    @profile.to_hash.key?(item)
   end
 
   def self.operational?
@@ -79,7 +85,7 @@ module Development
   end
 
   def self.remove_timestamp
-    @profile.delete("created_at")
+    @profile.delete(self::TOP_TIME)
     retain!(self::CFG_PATH, @profile)
   end
 
@@ -89,5 +95,11 @@ module Development
 
   def self.setup
     @profile = upload!(self::CFG_PATH)
+  end
+
+  def self.update_options(data)
+    @profile[self::OPT_NAME] = data
+    @profile[self::TOP_USER] = "#{name}:#{__method__}"
+    retain!(self::CFG_PATH, @profile)
   end
 end

@@ -21,8 +21,27 @@ module Development
       false
     end
 
+    def provide_options
+      [{ "type" => "java-application" },
+       { "dsl" => "groovy" },
+       { "test-framework" => "junit-jupiter" },
+       { "package" => "com.me.demo" },
+       { "project-name" => "demo" },
+       { "java-version" => 25 },
+       { "no-comments" => nil },
+       { "no-incubating" => nil },
+       { "no-split-project" => nil },
+       { "overwrite" => nil }]
+    end
+
     def setup_core
-      fetch_data && patch_file
+      update_options && fetch_data && patch_file
+    end
+
+    def update_options
+      return true if Development.item?(Development::OPT_NAME)
+
+      Development.update_options(provide_options)
     end
 
     # class public methods

@@ -4,7 +4,11 @@ module Development
 
     def patch_file: -> bool
 
+    def provide_options: -> array[untyped]
+
     def setup_core: -> bool
+
+    def update_options: -> untyped
 
     def create: -> int
 

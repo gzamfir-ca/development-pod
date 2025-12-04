@@ -36,7 +36,23 @@ module Development
     end
 
     def setup_core
-      fetch_data && patch_data && patch_file
+      update_options && fetch_data && patch_data && patch_file
+    end
+
+    def provide_options
+      [{ "d" => "type=gradle-project" },
+       { "d" => "dependencies=web,devtools" },
+       { "d" => "baseDir=app" },
+       { "d" => "groupId=com.me" },
+       { "d" => "javaVersion=25" },
+       { "d" => "applicationName=App" },
+       { "d" => "packageName=com.me.demo" }]
+    end
+
+    def update_options
+      return true if Development.item?(Development::OPT_NAME)
+
+      Development.update_options(provide_options)
     end
 
     # class public methods
