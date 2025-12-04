@@ -10,10 +10,12 @@ module Development
   CFG_PATH: String
   DEV_PATH: String
 
-  self.@profile: untyped
+  self.@profile: hash[untyped, untyped]
   self.@runtime: Pod
 
   def self.configured?: -> bool
+
+  def self.append_timestamp: -> untyped
 
   def self.data_path: -> String
 
@@ -28,6 +30,8 @@ module Development
   def self.options: -> hash[untyped, untyped]
 
   def self.read_data: (String) -> String
+
+  def self.remove_timestamp: -> untyped
 
   def self.runtime: -> Pod
 

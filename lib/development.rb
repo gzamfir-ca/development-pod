@@ -8,8 +8,6 @@ require_relative "development/pod/java_pod"
 require_relative "development/pod/version"
 require "pathname"
 require "rubygems"
-require "shellwords"
-require "yaml"
 
 # provides development-related utilities
 module Development
@@ -48,6 +46,11 @@ module Development
   end
 
   # module public methods
+  def self.append_timestamp
+    @profile["created_at"] = Time.now
+    retain!(self::CFG_PATH, @profile)
+  end
+
   def self.data_path
     gem_spec = Gem::Specification.find_by_name(self::GEM_NAME)
     File.join(gem_spec.full_gem_path, self::GEM_DATA)
@@ -73,6 +76,11 @@ module Development
   rescue StandardError => e
     puts "#{name}:#{__method__} reading data failed: #{e.message}"
     ""
+  end
+
+  def self.remove_timestamp
+    @profile.delete("created_at")
+    retain!(self::CFG_PATH, @profile)
   end
 
   def self.runtime

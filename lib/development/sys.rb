@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "yaml"
+require "shellwords"
+
 # define helper methods
 def load_file(file)
   load file
@@ -12,6 +15,16 @@ def load_yaml(file)
   YAML.safe_load_file(file, permitted_classes: [Time])
 rescue StandardError => e
   puts "#{Object.name}:#{__method__} loading yaml failed: #{e.message}"
+  nil
+end
+
+def save_yaml(file, data)
+  yaml_str = data.to_yaml
+  File.open(file, "w") do |f|
+    f.write(yaml_str)
+  end
+rescue StandardError => e
+  puts "#{Object.name}:#{__method__} saving yaml failed: #{e.message}"
   nil
 end
 
@@ -34,6 +47,11 @@ def reload!(print: true)
     end
   end
   true
+end
+
+def retain!(file, data, print: true)
+  puts "#{Object.name}:#{__method__} retaining: #{data}" if print
+  !save_yaml(file, data).nil?
 end
 
 def system!(args1, args2, print: true)

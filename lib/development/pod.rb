@@ -103,7 +103,7 @@ module Development
         return 1
       end
 
-      res_ok = safe_remove
+      res_ok = safe_remove && Development.remove_timestamp
       msg = format(test_msg(res_ok), self.class.name, __method__)
       puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
       res_ok ? 0 : 1
