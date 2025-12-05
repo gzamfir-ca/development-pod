@@ -4,10 +4,14 @@ module Development
 
     def provide_options: -> array[untyped]
 
+    def run_update: -> bool
+
     def setup_core: -> bool
 
     def update_options: -> untyped
 
     def create: -> int
+
+    def update: -> int
   end
 end
