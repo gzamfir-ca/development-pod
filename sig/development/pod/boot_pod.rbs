@@ -1,10 +1,18 @@
 module Development
   class BootPod
+    GS_FILE: String
+    GB_FILE: String
+    SB_FILE: String
+
+    def boot_data: -> String
+
     def fetch_data: -> bool
 
     def patch_data: -> bool
 
     def patch_file: -> bool
+
+    def write_file: (String file, String data) -> bool
 
     def provide_options: -> array[untyped]
 

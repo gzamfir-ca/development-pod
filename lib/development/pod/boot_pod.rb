@@ -3,7 +3,19 @@
 module Development
   # provides boot-specific implementation
   class BootPod < Pod
+    GS_FILE = "settings.gradle"
+    GB_FILE = "app/build.gradle"
+    SB_FILE = "app/src/main/resources/application.properties"
     # class private methods
+    def boot_data
+      <<~MULTILINE_CONTENT
+        endpoints.shutdown.enabled=true
+        management.endpoint.shutdown.enabled=true
+        management.endpoints.web.exposure.include=*
+        logging.level.org.apache.tomcat.util.net.Acceptor=OFF
+      MULTILINE_CONTENT
+    end
+
     def fetch_data
       tool1 = %w[curl https://start.spring.io/starter.tgz].tap { |t| append_options(t, sep: "-") }
       tool2 = %w[tar -xzvf -]
@@ -26,8 +38,14 @@ module Development
     end
 
     def patch_file
-      File.open("settings.gradle", "a") do |f|
-        f.puts "include('app')"
+      res_ok = write_file(SB_FILE, boot_data)
+      write_file(GS_FILE, "include('app')") && res_ok
+      write_file(GB_FILE, "\ntasks.bootRun {\n\tignoreExitValue = true\n}\n") && res_ok
+    end
+
+    def write_file(file, data)
+      File.open(file, "a") do |f|
+        f << data
       end
       true
     rescue StandardError => e
@@ -41,7 +59,7 @@ module Development
 
     def provide_options
       [{ "d" => "type=gradle-project" },
-       { "d" => "dependencies=web,devtools" },
+       { "d" => "dependencies=web,devtools,actuator" },
        { "d" => "baseDir=app" },
        { "d" => "groupId=com.me" },
        { "d" => "javaVersion=25" },
