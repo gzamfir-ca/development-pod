@@ -9,8 +9,18 @@ module Development
       system!(tool, nil)
     end
 
+    def provide_options
+      [{ "bundle" => nil }, { "exe" => nil }]
+    end
+
     def setup_core
-      fetch_data
+      update_options && fetch_data
+    end
+
+    def update_options
+      return true if Development.item?(Development::OPT_NAME)
+
+      Development.update_options(provide_options)
     end
 
     # class public methods
