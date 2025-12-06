@@ -17,17 +17,21 @@ module Development
 
   def self.configured?: -> bool
 
-  def self.append_timestamp: -> untyped
-
-  def self.data_path: -> String
-
-  def self.item?: (String item) -> bool
-
   def self.protected?: -> bool
 
   def self.runtime_class: -> Class
 
   def self.secured?: -> bool
+
+  def self.append_timestamp: -> untyped
+
+  def self.copy_item: (String src_dir, String dest_dir) -> bool
+
+  def self.data_path: -> String
+
+  def self.entry?: (String entry) -> bool
+
+  def self.move_item: (String src_dir, String dest_dir) -> bool
 
   def self.operational?: -> bool
 

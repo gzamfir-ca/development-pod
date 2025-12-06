@@ -34,22 +34,6 @@ module Development
       end
     end
 
-    def copy_item(src_dir, dest_dir)
-      FileUtils.cp_r(src_dir, dest_dir, verbose: true, preserve: true)
-      true
-    rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} u_copy call failed: #{e.message}"
-      false
-    end
-
-    def move_item(src_dir, dest_dir)
-      FileUtils.mv(src_dir, dest_dir, verbose: true, secure: true)
-      true
-    rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} u_move call failed: #{e.message}"
-      false
-    end
-
     def test_msg(res_ok)
       res_ok ? "%s:%s succeeded!" : "%s:%s failed!"
     end

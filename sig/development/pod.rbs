@@ -13,10 +13,6 @@ module Development
 
     def append_options: (Array[String] tool, ?sep: String) -> untyped
 
-    def copy_item: (String src_dir, String dest_dir) -> bool
-
-    def move_item: (String src_dir, String dest_dir) -> bool
-
     def test_color: (bool res_ok) -> String
 
     def test_msg: (bool res_ok) -> String

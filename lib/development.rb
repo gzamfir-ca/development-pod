@@ -56,6 +56,14 @@ module Development
     retain!(self::CFG_PATH, @profile)
   end
 
+  def self.copy_item(src_dir, dest_dir)
+    FileUtils.cp_r(src_dir, dest_dir, verbose: true, preserve: true)
+    true
+  rescue StandardError => e
+    puts "#{name}:#{__method__} copying item failed: #{e.message}"
+    false
+  end
+
   def self.data_path
     gem_spec = Gem::Specification.find_by_name(self::GEM_NAME)
     File.join(gem_spec.full_gem_path, self::GEM_DATA)
@@ -64,8 +72,16 @@ module Development
     "."
   end
 
-  def self.item?(item)
-    @profile.to_hash.key?(item)
+  def self.entry?(entry)
+    @profile.to_hash.key?(entry)
+  end
+
+  def self.move_item(src_dir, dest_dir)
+    FileUtils.mv(src_dir, dest_dir, verbose: true, secure: true)
+    true
+  rescue StandardError => e
+    puts "#{name}:#{__method__} moving item failed: #{e.message}"
+    false
   end
 
   def self.operational?

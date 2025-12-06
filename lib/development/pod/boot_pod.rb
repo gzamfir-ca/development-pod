@@ -22,19 +22,19 @@ module Development
       res_ok = system!(tool1, tool2)
       items = %w[.gitattributes .gitignore gradle gradlew gradlew.bat HELP.md settings.gradle]
       items.each do |item|
-        res_ok = move_item("./app/#{item}", ".") && res_ok
+        res_ok = Development.move_item("./app/#{item}", ".") && res_ok
       end
       res_ok
     end
 
     def patch_data
       path = Pathname.new(Development.data_path).expand_path
-      src_dir1 = path.join("boot/main/greeting").to_s
-      src_dir2 = path.join("boot/test/greeting").to_s
-      dest_dir1 = "./app/src/main/java/com/me/demo"
-      dest_dir2 = "./app/src/test/java/com/me/demo"
-      res_ok = copy_item(src_dir1, dest_dir1)
-      copy_item(src_dir2, dest_dir2) && res_ok
+      src_item1 = path.join("boot/main/greeting").to_s
+      src_item2 = path.join("boot/test/greeting").to_s
+      dest_item1 = "./app/src/main/java/com/me/demo"
+      dest_item2 = "./app/src/test/java/com/me/demo"
+      res_ok = Development.copy_item(src_item1, dest_item1)
+      Development.copy_item(src_item2, dest_item2) && res_ok
     end
 
     def patch_file
@@ -68,7 +68,7 @@ module Development
     end
 
     def update_options
-      return true if Development.item?(Development::OPT_NAME)
+      return true if Development.entry?(Development::OPT_NAME)
 
       Development.update_options(provide_options)
     end

@@ -39,7 +39,7 @@ module Development
     end
 
     def update_options
-      return true if Development.item?(Development::OPT_NAME)
+      return true if Development.entry?(Development::OPT_NAME)
 
       Development.update_options(provide_options)
     end
