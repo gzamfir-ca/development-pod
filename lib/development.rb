@@ -120,6 +120,16 @@ module Development
     @profile = upload!(self::CFG_PATH)
   end
 
+  def self.token_gsub(file, original, replacement)
+    content = File.read(file)
+    updated_content = content.gsub(original, replacement)
+    File.write(file, updated_content)
+    true
+  rescue StandardError => e
+    puts "#{name}:#{__method__} writing token failed: #{e.message}"
+    false
+  end
+
   def self.update_options(data)
     @profile[self::OPT_NAME] = data
     @profile[self::TOP_USER] = "#{name}:#{__method__}"

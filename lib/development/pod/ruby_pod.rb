@@ -9,12 +9,16 @@ module Development
       system!(tool, nil)
     end
 
+    def patch_file
+      Development.token_gsub("./app/spec/app_spec.rb", "false", "true")
+    end
+
     def provide_options
       [{ "bundle" => nil }, { "exe" => nil }]
     end
 
     def setup_core
-      update_options && fetch_data
+      update_options && fetch_data && patch_file
     end
 
     def update_options
