@@ -5,8 +5,10 @@ require_relative "development/pod"
 require_relative "development/sys"
 require_relative "development/pod/boot_pod"
 require_relative "development/pod/java_pod"
-require_relative "development/pod/vite_pod"
+require_relative "development/pod/ruby_pod"
 require_relative "development/pod/version"
+require_relative "development/pod/vite_pod"
+
 require "pathname"
 require "rubygems"
 
