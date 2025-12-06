@@ -9,6 +9,7 @@ require_relative "development/pod/ruby_pod"
 require_relative "development/pod/version"
 require_relative "development/pod/vite_pod"
 
+require "fileutils"
 require "pathname"
 require "rubygems"
 
