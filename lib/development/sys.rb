@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "yaml"
-require "shellwords"
-
 # define helper methods
 def load_file(file)
   load file

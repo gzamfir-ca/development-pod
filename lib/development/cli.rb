@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "thor"
-
 module Development
   # provides CLI implementation
   class CLI < Thor
