@@ -23,28 +23,21 @@ module Development
   SRC_FILE = "src.yml"
   OPT_NAME = "options"
   RUN_TIME = "runtime"
+  POD_NAME = "podname"
   TOP_TIME = "created_at"
   TOP_USER = "updated_by"
   GEM_DATA = "data"
-  POD_NAME = "Pod"
+  POD_TYPE = "Pod"
   GEM_NAME = Gem.loaded_specs["development-pod"].name
   CFG_PATH = Pathname.new(Dir.pwd).join(self::CFG_FILE).expand_path.to_s
   DEV_PATH = Pathname.new(Dir.home).join(self::DEV_ROOT).expand_path.to_s
 
   # module private methods
-  def self.configured?
-    File.exist?(self::CFG_FILE)
-  end
-
-  def self.protected?
-    File.exist?(self::SRC_FILE)
-  end
-
   def self.runtime_class
     runtime_name = @profile[self::RUN_TIME]
     return Pod if runtime_name.nil? || runtime_name.empty?
 
-    Object.const_get("#{Development.name}::#{runtime_name.capitalize}#{self::POD_NAME}")
+    Object.const_get("#{Development.name}::#{runtime_name.capitalize}#{self::POD_TYPE}")
   rescue NameError => e
     puts "#{name}:#{__method__} runtime not found: #{e.message}"
     Pod
@@ -89,7 +82,7 @@ module Development
   end
 
   def self.operational?
-    configured? && secured? && !protected?
+    secured? && File.exist?(self::CFG_FILE) && !File.exist?(self::SRC_FILE)
   end
 
   def self.options
@@ -97,6 +90,10 @@ module Development
   rescue NameError => e
     puts "#{name}:#{__method__} options not found: #{e.message}"
     {}
+  end
+
+  def self.pod_name
+    @profile[self::POD_NAME]
   end
 
   def self.read_data(file)
