@@ -4,12 +4,12 @@ module Development
   # provides java-specific implementation
   class JavaPod < Pod
     # class private methods
-    def fetch_data
+    def fetch_data?
       tool = %w[gradle init --console verbose].tap { |t| append_options(t) }
-      system!(tool, nil)
+      system?(tool, nil)
     end
 
-    def patch_file
+    def patch_file?
       lines = File.readlines("settings.gradle")
       lines.select! do |line|
         line.strip.start_with?("include", "rootProject")
@@ -34,14 +34,14 @@ module Development
        { "overwrite" => nil }]
     end
 
-    def setup_core
-      update_options && fetch_data && patch_file
+    def setup_core?
+      update_options? && fetch_data? && patch_file?
     end
 
-    def update_options
+    def update_options?
       return true if Development.entry?(Development::OPT_NAME)
 
-      Development.update_options(provide_options)
+      Development.update_options?(provide_options)
     end
 
     # class public methods
@@ -52,7 +52,7 @@ module Development
         return 1
       end
 
-      res_ok = setup_core && Development.append_timestamp
+      res_ok = setup_core? && Development.append_timestamp?
       msg = format(test_msg(res_ok), self.class.name, __method__)
       puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
       res_ok ? 0 : 1
@@ -66,7 +66,7 @@ module Development
       end
 
       tool = %w[gradle run --console verbose]
-      res_ok = system!(tool, nil)
+      res_ok = system?(tool, nil)
       msg = format(test_msg(res_ok), self.class.name, __method__)
       puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
       res_ok ? 0 : 1
@@ -80,7 +80,7 @@ module Development
       end
 
       tool = %w[gradle test --continuous --console verbose]
-      res_ok = system!(tool, nil)
+      res_ok = system?(tool, nil)
       msg = format(test_msg(res_ok), self.class.name, __method__)
       puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
       res_ok ? 0 : 1

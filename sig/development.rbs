@@ -20,15 +20,15 @@ module Development
 
   def self.secured?: -> bool
 
-  def self.append_timestamp: -> untyped
+  def self.append_timestamp?: -> bool
 
-  def self.copy_item: (String src_dir, String dest_dir) -> bool
+  def self.copy_item?: (String src_dir, String dest_dir) -> bool
 
   def self.data_path: -> String
 
   def self.entry?: (String entry) -> bool
 
-  def self.move_item: (String src_dir, String dest_dir) -> bool
+  def self.move_item?: (String src_dir, String dest_dir) -> bool
 
   def self.operational?: -> bool
 
@@ -38,14 +38,14 @@ module Development
 
   def self.read_data: (String file) -> String
 
-  def self.remove_timestamp: -> untyped
+  def self.remove_timestamp?: -> bool
 
   def self.runtime: -> Pod
 
   def self.setup: -> untyped
 
-  def self.token_gsub: (String file, String original, String replacement) -> bool
+  def self.token_gsub?: (String file, String original, String replacement) -> bool
 
-  def self.update_options: (array[untyped] data) -> untyped
+  def self.update_options?: (array[untyped] data) -> bool
 
 end

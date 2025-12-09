@@ -48,12 +48,12 @@ module Development
   end
 
   # module public methods
-  def self.append_timestamp
+  def self.append_timestamp?
     @profile[self::TOP_TIME] = Time.now
-    retain!(self::CFG_PATH, @profile)
+    retain?(self::CFG_PATH, @profile)
   end
 
-  def self.copy_item(src_dir, dest_dir)
+  def self.copy_item?(src_dir, dest_dir)
     FileUtils.cp_r(src_dir, dest_dir, verbose: true, preserve: true)
     true
   rescue StandardError => e
@@ -73,7 +73,7 @@ module Development
     @profile.to_hash.key?(entry)
   end
 
-  def self.move_item(src_dir, dest_dir)
+  def self.move_item?(src_dir, dest_dir)
     FileUtils.mv(src_dir, dest_dir, verbose: true, secure: true)
     true
   rescue StandardError => e
@@ -104,9 +104,9 @@ module Development
     ""
   end
 
-  def self.remove_timestamp
+  def self.remove_timestamp?
     @profile.delete(self::TOP_TIME)
-    retain!(self::CFG_PATH, @profile)
+    retain?(self::CFG_PATH, @profile)
   end
 
   def self.runtime
@@ -117,7 +117,7 @@ module Development
     @profile = upload!(self::CFG_PATH)
   end
 
-  def self.token_gsub(file, original, replacement)
+  def self.token_gsub?(file, original, replacement)
     content = File.read(file)
     updated_content = content.gsub(original, replacement)
     File.write(file, updated_content)
@@ -127,9 +127,9 @@ module Development
     false
   end
 
-  def self.update_options(data)
+  def self.update_options?(data)
     @profile[self::OPT_NAME] = data
     @profile[self::TOP_USER] = "#{name}:#{__method__}"
-    retain!(self::CFG_PATH, @profile)
+    retain?(self::CFG_PATH, @profile)
   end
 end

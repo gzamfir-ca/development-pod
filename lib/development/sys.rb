@@ -17,9 +17,7 @@ end
 
 def save_yaml(file, data)
   yaml_str = data.to_yaml
-  File.open(file, "w") do |f|
-    f.write(yaml_str)
-  end
+  File.write(file, yaml_str)
 rescue StandardError => e
   puts "#{Object.name}:#{__method__} saving yaml failed: #{e.message}"
   nil
@@ -34,7 +32,7 @@ rescue StandardError => e
 end
 
 # define system-wide utilities
-def reload!(print: true)
+def reload?(print: true)
   path = File.expand_path("..", __dir__ || Dir.pwd)
   reload_dirs = %w[lib]
   reload_dirs.each do |dir|
@@ -46,12 +44,12 @@ def reload!(print: true)
   true
 end
 
-def retain!(file, data, print: true)
+def retain?(file, data, print: true)
   puts "#{Object.name}:#{__method__} retaining: #{data}" if print
   !save_yaml(file, data).nil?
 end
 
-def system!(args1, args2, print: true)
+def system?(args1, args2, print: true)
   cmd1 = Shellwords.join(args1)
   cmd2 = Shellwords.join(args2) unless args2.nil? || args2.empty?
   full_cmd = cmd2 ? "#{cmd1} | #{cmd2}" : cmd1

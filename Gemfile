@@ -2,5 +2,22 @@
 
 source "https://rubygems.org"
 
+group :development do
+  gem "bundler", ">= 4.0.1"
+  gem "date", ">= 3.5.0"
+  gem "erb", ">= 6.0.0"
+  gem "irb", ">= 1.15.3"
+  gem "json", ">= 2.17.1"
+  gem "parser", ">= 3.3.10.0"
+  gem "rake", ">= 13.3.1"
+  gem "rdoc", ">= 6.17.0"
+  gem "reline", ">= 0.6.3"
+  gem "rspec", ">= 3.13.2"
+  gem "rspec-mocks", ">= 3.13.7"
+  gem "rubocop", ">= 1.81.7"
+  gem "rubocop-ast", ">= 1.48.0"
+  gem "stringio", ">= 3.1.9"
+end
+
 # Specify your gem's dependencies in development-pod.gemspec
 gemspec

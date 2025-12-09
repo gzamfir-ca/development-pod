@@ -9,7 +9,7 @@ module Development
     THEN_MSG: String
     VERSION: String
 
-    def safe_remove: -> bool
+    def safe_remove?: -> bool
 
     def append_options: (Array[String] tool, ?sep: String) -> untyped
 

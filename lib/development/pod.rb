@@ -12,7 +12,7 @@ module Development
     THEN_MSG = "%s:%s not available!"
 
     # class private methods
-    def safe_remove
+    def safe_remove?
       Dir.children(".").each do |item|
         FileUtils.rm_rf(item, verbose: true, secure: true) unless item == Development::CFG_FILE
       end
@@ -85,7 +85,7 @@ module Development
         return 1
       end
 
-      res_ok = safe_remove && Development.remove_timestamp
+      res_ok = safe_remove? && Development.remove_timestamp?
       msg = format(test_msg(res_ok), self.class.name, __method__)
       puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
       res_ok ? 0 : 1

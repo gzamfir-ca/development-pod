@@ -1,14 +1,14 @@
 module Development
   class JavaPod
-    def fetch_data: -> bool
+    def fetch_data?: -> bool
 
-    def patch_file: -> bool
+    def patch_file?: -> bool
 
     def provide_options: -> array[untyped]
 
-    def setup_core: -> bool
+    def setup_core?: -> bool
 
-    def update_options: -> untyped
+    def update_options?: -> bool
 
     def create: -> int
 

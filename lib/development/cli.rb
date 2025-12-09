@@ -29,7 +29,7 @@ module Development
     desc "help [COMMAND]", "describes cli command"
 
     def help(command = nil)
-      super(command)
+      super
     end
 
     desc "ping", "provides a test reply"
