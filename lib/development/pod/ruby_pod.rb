@@ -5,12 +5,26 @@ module Development
   class RubyPod < Pod
     # class private methods
     def fetch_data
-      tool = %w[bundle gem app].tap { |t| append_options(t) }
+      app = Development.pod_name
+      tool = %W[bundle gem #{app}].tap { |t| append_options(t) }
       system!(tool, nil)
     end
 
+    def patch_data
+      app = Development.pod_name
+      tool = %w[bundle exec rake rubocop:autocorrect_all]
+      FileUtils.cd(app, verbose: true) do
+        system!(tool, nil)
+      end
+    rescue StandardError => e
+      puts "#{self.class.name}:#{__method__} runtime call failed: #{e.message}"
+      false
+    end
+
     def patch_file
-      Development.token_gsub("./app/spec/app_spec.rb", "false", "true")
+      app = Development.pod_name
+      path = "./#{app}/spec/#{app}_spec.rb"
+      Development.token_gsub(path, "false", "true")
     end
 
     def provide_options
@@ -18,7 +32,7 @@ module Development
     end
 
     def setup_core
-      update_options && fetch_data && patch_file
+      update_options && fetch_data && patch_data && patch_file
     end
 
     def update_options
