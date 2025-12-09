@@ -26,7 +26,9 @@ module Development
       path = "./#{app}/spec/#{app}_spec.rb"
       res_ok = Development.token_gsub?(path, "false", "true")
       path = "./#{app}/.rubocop.yml"
-      Development.token_gsub?(path, "AllCops:", "AllCops:\n  NewCops: enable") && res_ok
+      original = "AllCops:"
+      replacement = "AllCops:\n  NewCops: enable\n  SuggestExtensions: false"
+      Development.token_gsub?(path, original, replacement) && res_ok
     end
 
     def provide_options
