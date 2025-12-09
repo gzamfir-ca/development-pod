@@ -54,7 +54,7 @@ module Development
     end
 
     def setup_core
-      update_options && fetch_data && patch_data && patch_file
+      update_options && fetch_data && patch_file && patch_data
     end
 
     def provide_options

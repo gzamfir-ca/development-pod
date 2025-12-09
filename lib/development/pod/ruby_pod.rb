@@ -25,6 +25,8 @@ module Development
       app = Development.pod_name
       path = "./#{app}/spec/#{app}_spec.rb"
       Development.token_gsub(path, "false", "true")
+      path = "./#{app}/.rubocop.yml"
+      Development.token_gsub(path, "AllCops:", "AllCops:\n  NewCops: enable")
     end
 
     def provide_options
@@ -32,7 +34,7 @@ module Development
     end
 
     def setup_core
-      update_options && fetch_data && patch_data && patch_file
+      update_options && fetch_data && patch_file && patch_data
     end
 
     def update_options
