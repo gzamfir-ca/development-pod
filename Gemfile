@@ -12,6 +12,7 @@ group :development do
   gem "rake", ">= 13.3.1"
   gem "rdoc", ">= 6.17.0"
   gem "reline", ">= 0.6.3"
+  gem "rerun", ">= 0.14.0"
   gem "rspec", ">= 3.13.2"
   gem "rspec-mocks", ">= 3.13.7"
   gem "rubocop", ">= 1.81.7"
@@ -19,5 +20,4 @@ group :development do
   gem "stringio", ">= 3.1.9"
 end
 
-# Specify your gem's dependencies in development-pod.gemspec
 gemspec
