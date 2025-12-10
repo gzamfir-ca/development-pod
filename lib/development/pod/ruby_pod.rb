@@ -29,10 +29,24 @@ module Development
       original = "AllCops:"
       replacement = "AllCops:\n  NewCops: enable\n  SuggestExtensions: false"
       Development.token_gsub?(path, original, replacement) && res_ok
+      write_file?("./#{app}/Gemfile", ruby_data) && res_ok
     end
 
     def provide_options
-      [{ "bundle" => nil }, { "exe" => nil }]
+      [{ "exe" => nil }]
+    end
+
+    def ruby_data
+      <<~MULTILINE_CONTENT
+        source "https://rubygems.org"
+        gemspec
+        gem "bundler", ">= 4.0.1"
+        gem "irb", ">= 1.15.3"
+        gem "rake", ">= 13.3.1"
+        gem "rerun", ">= 0.14.0"
+        gem "rspec", ">= 3.13.2"
+        gem "rubocop", ">= 1.81.7"
+      MULTILINE_CONTENT
     end
 
     def setup_core?
@@ -43,6 +57,16 @@ module Development
       return true if Development.entry?(Development::OPT_NAME)
 
       Development.update_options?(provide_options)
+    end
+
+    def write_file?(file, data)
+      File.open(file, "w") do |f|
+        f << data
+      end
+      true
+    rescue StandardError => e
+      puts "#{self.class.name}:#{__method__} p_file call failed: #{e.message}"
+      false
     end
 
     # class public methods

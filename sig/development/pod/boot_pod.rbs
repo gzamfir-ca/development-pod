@@ -12,13 +12,13 @@ module Development
 
     def patch_file?: -> bool
 
-    def write_file?: (String file, String data) -> bool
-
     def provide_options: -> array[untyped]
 
     def setup_core?: -> bool
 
     def update_options?: -> bool
+
+    def write_file?: (String file, String data) -> bool
 
     def create: -> int
 

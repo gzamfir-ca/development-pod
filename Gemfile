@@ -2,13 +2,16 @@
 
 source "https://rubygems.org"
 
+gemspec
+
 group :development do
   gem "bundler", ">= 4.0.1"
-  gem "date", ">= 3.5.0"
+  gem "date", ">= 3.5.1"
   gem "erb", ">= 6.0.0"
   gem "irb", ">= 1.15.3"
   gem "json", ">= 2.17.1"
   gem "parser", ">= 3.3.10.0"
+  gem "psych", ">= 5.3.0"
   gem "rake", ">= 13.3.1"
   gem "rdoc", ">= 6.17.0"
   gem "reline", ">= 0.6.3"
@@ -19,5 +22,3 @@ group :development do
   gem "rubocop-ast", ">= 1.48.0"
   gem "stringio", ">= 3.1.9"
 end
-
-gemspec

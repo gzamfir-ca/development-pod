@@ -43,16 +43,6 @@ module Development
       write_file?(GB_FILE, "\ntasks.bootRun {\n\tignoreExitValue = true\n}\n") && res_ok
     end
 
-    def write_file?(file, data)
-      File.open(file, "a") do |f|
-        f << data
-      end
-      true
-    rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} p_file call failed: #{e.message}"
-      false
-    end
-
     def setup_core?
       update_options? && fetch_data? && patch_file? && patch_data?
     end
@@ -71,6 +61,16 @@ module Development
       return true if Development.entry?(Development::OPT_NAME)
 
       Development.update_options?(provide_options)
+    end
+
+    def write_file?(file, data)
+      File.open(file, "a") do |f|
+        f << data
+      end
+      true
+    rescue StandardError => e
+      puts "#{self.class.name}:#{__method__} p_file call failed: #{e.message}"
+      false
     end
 
     # class public methods
