@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# define helper methods
+# provides top helper methods
 def load_file(file)
   load file
 rescue StandardError => e

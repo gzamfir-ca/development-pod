@@ -8,6 +8,7 @@ require "thor"
 require "yaml"
 
 require_relative "development/cli"
+require_relative "development/hub"
 require_relative "development/pod"
 require_relative "development/sys"
 require_relative "development/pod/boot_pod"

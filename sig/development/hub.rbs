@@ -1,0 +1,5 @@
+module Development
+  module Hub
+    def setup_core?: -> bool
+  end
+end

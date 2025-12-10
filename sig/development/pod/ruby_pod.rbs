@@ -13,8 +13,6 @@ module Development
 
     def run_update?: -> bool
 
-    def setup_core?: -> bool
-
     def update_options?: -> bool
 
     def write_file?: (String file, String data) -> bool

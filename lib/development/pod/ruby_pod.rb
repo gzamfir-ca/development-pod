@@ -4,6 +4,8 @@ module Development
   # provides ruby-specific implementation
   class RubyPod < Pod
     # class private methods
+    include Hub
+
     def fetch_data?
       tool = %W[bundle gem #{Development.pod_name}].tap { |t| append_options(t) }
       system?(tool, nil)
@@ -58,10 +60,6 @@ module Development
     rescue StandardError => e
       puts "#{self.class.name}:#{__method__} runtime call failed: #{e.message}"
       false
-    end
-
-    def setup_core?
-      update_options? && fetch_data? && patch_file? && patch_data?
     end
 
     def update_options?
