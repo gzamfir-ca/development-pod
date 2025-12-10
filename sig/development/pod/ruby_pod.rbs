@@ -1,14 +1,17 @@
 module Development
   class RubyPod
+
     def fetch_data?: -> bool
 
     def patch_data?: -> bool
 
     def patch_file?: -> bool
 
-    def provide_options: -> array[untyped]
-
     def ruby_data: -> String
+
+    def run_deploy?: -> bool
+
+    def run_update?: -> bool
 
     def setup_core?: -> bool
 
@@ -17,5 +20,9 @@ module Development
     def write_file?: (String file, String data) -> bool
 
     def create: -> int
+
+    def deploy: -> int
+
+    def update: -> int
   end
 end
