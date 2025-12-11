@@ -12,6 +12,7 @@ require_relative "development/hub"
 require_relative "development/pod"
 require_relative "development/sys"
 require_relative "development/pod/boot_pod"
+require_relative "development/pod/core_pod"
 require_relative "development/pod/java_pod"
 require_relative "development/pod/ruby_pod"
 require_relative "development/pod/version"
@@ -116,16 +117,6 @@ module Development
 
   def self.setup
     @profile = upload!(self::CFG_PATH)
-  end
-
-  def self.token_gsub?(file, original, replacement)
-    content = File.read(file)
-    updated_content = content.gsub(original, replacement)
-    File.write(file, updated_content)
-    true
-  rescue StandardError => e
-    puts "#{name}:#{__method__} writing token failed: #{e.message}"
-    false
   end
 
   def self.update_options?(data)

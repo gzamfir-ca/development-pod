@@ -1,5 +1,13 @@
 module Development
   module Hub
+    def run_tools?: (String path, array[untyped] tools) -> bool
+
     def setup_core?: -> bool
+
+    def token_gsub?: (String file, String original, String replacement) -> bool
+
+    def update_file?: (String file, String mode, String data) -> bool
+
+    def update_options?: -> bool
   end
 end

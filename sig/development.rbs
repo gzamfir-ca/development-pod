@@ -44,8 +44,6 @@ module Development
 
   def self.setup: -> untyped
 
-  def self.token_gsub?: (String file, String original, String replacement) -> bool
-
   def self.update_options?: (array[untyped] data) -> bool
 
 end

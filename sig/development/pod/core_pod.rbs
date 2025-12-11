@@ -1,0 +1,9 @@
+module Development
+  class CorePod
+    def create: -> int
+
+    def deploy: -> int
+
+    def update: -> int
+  end
+end
