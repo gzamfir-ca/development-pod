@@ -22,8 +22,6 @@ module Development
 
   def self.append_timestamp?: -> bool
 
-  def self.copy_item?: (String src_dir, String dest_dir) -> bool
-
   def self.data_path: -> String
 
   def self.entry?: (String entry) -> bool

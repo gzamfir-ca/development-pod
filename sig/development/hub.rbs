@@ -1,5 +1,9 @@
 module Development
   module Hub
+    def copy_item?: (String src_item, String dest_item) -> bool
+
+    def run_pipeline?: (String path, array[untyped] tools) -> bool
+
     def run_tools?: (String path, array[untyped] tools) -> bool
 
     def setup_core?: -> bool

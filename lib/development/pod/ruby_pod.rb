@@ -23,8 +23,8 @@ module Development
       rc_skip = "AllCops:\n  Exclude:\n    - 'bin/*'"
       gm_file = "./#{Development.pod_name}/Gemfile"
       res_ok = token_gsub?(sp_file, "false", "true")
-      token_gsub?(rc_file, "AllCops:", rc_prop) && res_ok
-      token_gsub?(rc_file, "AllCops:", rc_skip) && res_ok
+      res_ok = token_gsub?(rc_file, "AllCops:", rc_prop) && res_ok
+      res_ok = token_gsub?(rc_file, "AllCops:", rc_skip) && res_ok
       update_file?(gm_file, "w", ruby_data) && res_ok
     end
 

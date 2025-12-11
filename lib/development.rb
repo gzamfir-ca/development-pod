@@ -11,12 +11,12 @@ require_relative "development/cli"
 require_relative "development/hub"
 require_relative "development/pod"
 require_relative "development/sys"
-require_relative "development/pod/boot_pod"
 require_relative "development/pod/core_pod"
+require_relative "development/pod/boot_pod"
 require_relative "development/pod/java_pod"
 require_relative "development/pod/ruby_pod"
-require_relative "development/pod/version"
 require_relative "development/pod/vite_pod"
+require_relative "development/pod/version"
 
 # provides development-related utilities
 module Development
@@ -53,14 +53,6 @@ module Development
   def self.append_timestamp?
     @profile[self::TOP_TIME] = Time.now
     retain?(self::CFG_PATH, @profile)
-  end
-
-  def self.copy_item?(src_dir, dest_dir)
-    FileUtils.cp_r(src_dir, dest_dir, verbose: true, preserve: true)
-    true
-  rescue StandardError => e
-    puts "#{name}:#{__method__} copying item failed: #{e.message}"
-    false
   end
 
   def self.data_path

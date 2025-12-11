@@ -3,6 +3,24 @@
 module Development
   # provides pod helper methods
   module Hub
+    def copy_item?(src_item, dest_item)
+      FileUtils.cp_r(src_item, dest_item, verbose: true, preserve: true)
+      true
+    rescue StandardError => e
+      puts "#{name}:#{__method__} copying item failed: #{e.message}"
+      false
+    end
+
+    def run_pipeline?(path, tools)
+      res_ok = true
+      FileUtils.cd(path, verbose: true) do
+        res_ok = system?(tools[0], tools[1]) && res_ok
+      end && res_ok
+    rescue StandardError => e
+      puts "#{self.class.name}:#{__method__} runtime call failed: #{e.message}"
+      false
+    end
+
     def run_tools?(path, tools)
       res_ok = true
       FileUtils.cd(path, verbose: true) do

@@ -14,16 +14,8 @@ module Development
 
     def provide_options: -> array[untyped]
 
-    def setup_core?: -> bool
+    def run_deploy?: -> bool
 
-    def update_options?: -> bool
-
-    def write_file?: (String file, String data) -> bool
-
-    def create: -> int
-
-    def deploy: -> int
-
-    def update: -> int
+    def run_update?: -> bool
   end
 end
