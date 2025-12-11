@@ -11,13 +11,25 @@ module Development
       false
     end
 
+    def filter_file?(file, patterns)
+      lines = File.readlines(file)
+      lines.select! do |line|
+        line.strip.start_with?(*patterns)
+      end
+      File.open(file, "w") { |f| f.puts lines }
+      true
+    rescue StandardError => e
+      puts "#{self.class.name}:#{__method__} file filtering failed: #{e.message}"
+      false
+    end
+
     def run_pipeline?(path, tools)
       res_ok = true
       FileUtils.cd(path, verbose: true) do
         res_ok = system?(tools[0], tools[1]) && res_ok
       end && res_ok
     rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} runtime call failed: #{e.message}"
+      puts "#{self.class.name}:#{__method__} running pipeline failed: #{e.message}"
       false
     end
 
@@ -29,7 +41,7 @@ module Development
         end
       end && res_ok
     rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} runtime call failed: #{e.message}"
+      puts "#{self.class.name}:#{__method__} running tools failed: #{e.message}"
       false
     end
 
@@ -43,7 +55,7 @@ module Development
       File.write(file, new_content)
       true
     rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} writing token failed: #{e.message}"
+      puts "#{self.class.name}:#{__method__} substituting token failed: #{e.message}"
       false
     end
 
@@ -53,7 +65,7 @@ module Development
       end
       true
     rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} file writing failed: #{e.message}"
+      puts "#{self.class.name}:#{__method__} file updating failed: #{e.message}"
       false
     end
 

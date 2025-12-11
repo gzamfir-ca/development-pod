@@ -2,23 +2,21 @@
 
 module Development
   # provides java-specific implementation
-  class JavaPod < Pod
+  class JavaPod < CorePod
     # class private methods
+    include Hub
+
     def fetch_data?
       tool = %w[gradle init --console verbose].tap { |t| append_options(t) }
-      system?(tool, nil)
+      run_tools?(".", [tool])
+    end
+
+    def patch_data?
+      true
     end
 
     def patch_file?
-      lines = File.readlines("settings.gradle")
-      lines.select! do |line|
-        line.strip.start_with?("include", "rootProject")
-      end
-      File.open("settings.gradle", "w") { |f| f.puts lines }
-      true
-    rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} p_file call failed: #{e.message}"
-      false
+      filter_file?("settings.gradle", %w[include rootProject])
     end
 
     def provide_options
@@ -34,56 +32,14 @@ module Development
        { "overwrite" => nil }]
     end
 
-    def setup_core?
-      update_options? && fetch_data? && patch_file?
-    end
-
-    def update_options?
-      return true if Development.entry?(Development::OPT_NAME)
-
-      Development.update_options?(provide_options)
-    end
-
-    # class public methods
-    def create
-      unless Development.operational?
-        msg = format(FAIL_MSG, self.class.name, __method__)
-        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
-        return 1
-      end
-
-      res_ok = setup_core? && Development.append_timestamp?
-      msg = format(test_msg(res_ok), self.class.name, __method__)
-      puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
-      res_ok ? 0 : 1
-    end
-
-    def deploy
-      unless Development.operational?
-        msg = format(FAIL_MSG, self.class.name, __method__)
-        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
-        return 1
-      end
-
+    def run_deploy?
       tool = %w[gradle run --console verbose]
-      res_ok = system?(tool, nil)
-      msg = format(test_msg(res_ok), self.class.name, __method__)
-      puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
-      res_ok ? 0 : 1
+      run_tools?("app", [tool])
     end
 
-    def update
-      unless Development.operational?
-        msg = format(FAIL_MSG, self.class.name, __method__)
-        puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
-        return 1
-      end
-
+    def run_update?
       tool = %w[gradle test --continuous --console verbose]
-      res_ok = system?(tool, nil)
-      msg = format(test_msg(res_ok), self.class.name, __method__)
-      puts "#{test_color(res_ok)}#{msg}#{BACK_COLOR}"
-      res_ok ? 0 : 1
+      run_tools?("app", [tool])
     end
   end
 end
