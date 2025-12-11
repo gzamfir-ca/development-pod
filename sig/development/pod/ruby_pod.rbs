@@ -13,9 +13,5 @@ module Development
     def run_deploy?: -> bool
 
     def run_update?: -> bool
-
-    def update_options?: -> bool
-
-    def write_file?: (String file, String data) -> bool
   end
 end
