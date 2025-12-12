@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Development
-  # provides java-specific implementation
+  # provides java-specific utilities implementation
   class JavaPod < CorePod
     # class private methods
     include Hub

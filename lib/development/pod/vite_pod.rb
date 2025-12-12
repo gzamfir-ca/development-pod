@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Development
-  # provides vite-specific implementation
+  # provides vite-specific utilities implementation
   class VitePod < CorePod
     # class private methods
     include Hub

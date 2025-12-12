@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Development
-  # provides boot-specific implementation
+  # provides generic utilities implementation
   class CorePod < Pod
     # class public methods
     def create

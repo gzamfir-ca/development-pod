@@ -26,7 +26,7 @@ module Development
       end
       true
     rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} remove call failed: #{e.message}"
+      puts "#{self.class.name}:#{__method__} removing items failed: #{e.message}"
       false
     end
 

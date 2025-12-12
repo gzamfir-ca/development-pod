@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Development
-  # provides boot-specific implementation
+  # provides boot-specific utilities implementation
   class BootPod < CorePod
     # class private methods
     include Hub

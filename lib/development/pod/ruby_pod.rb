@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Development
-  # provides ruby-specific implementation
+  # provides ruby-specific utilities implementation
   class RubyPod < CorePod
     # class private methods
     include Hub
