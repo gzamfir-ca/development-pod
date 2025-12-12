@@ -11,11 +11,6 @@ module Development
       run_tools?(".", [tool])
     end
 
-    def patch_data?
-      tool = %w[bundle exec rake rubocop:autocorrect_all]
-      run_tools?(Development.pod_name, [tool])
-    end
-
     def patch_file?
       sp_file = "./#{Development.pod_name}/spec/#{Development.pod_name}_spec.rb"
       rc_file = "./#{Development.pod_name}/.rubocop.yml"
@@ -26,6 +21,11 @@ module Development
       res_ok = token_gsub?(rc_file, "AllCops:", rc_prop) && res_ok
       res_ok = token_gsub?(rc_file, "AllCops:", rc_skip) && res_ok
       update_file?(gm_file, "w", ruby_data) && res_ok
+    end
+
+    def patch_path?
+      tool = %w[bundle exec rake rubocop:autocorrect_all]
+      run_tools?(Development.pod_name, [tool])
     end
 
     def provide_options

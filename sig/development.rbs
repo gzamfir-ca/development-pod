@@ -26,15 +26,11 @@ module Development
 
   def self.entry?: (String entry) -> bool
 
-  def self.move_item?: (String src_dir, String dest_dir) -> bool
-
   def self.operational?: -> bool
 
   def self.options: -> hash[untyped, untyped]
 
   def self.pod_name: -> String
-
-  def self.read_data: (String file) -> String
 
   def self.remove_timestamp?: -> bool
 

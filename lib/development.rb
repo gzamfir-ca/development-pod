@@ -67,14 +67,6 @@ module Development
     @profile.to_hash.key?(entry)
   end
 
-  def self.move_item?(src_dir, dest_dir)
-    FileUtils.mv(src_dir, dest_dir, verbose: true, secure: true)
-    true
-  rescue StandardError => e
-    puts "#{name}:#{__method__} moving item failed: #{e.message}"
-    false
-  end
-
   def self.operational?
     secured? && File.exist?(self::CFG_FILE) && !File.exist?(self::SRC_FILE)
   end
@@ -88,14 +80,6 @@ module Development
 
   def self.pod_name
     @profile[self::POD_NAME]
-  end
-
-  def self.read_data(file)
-    path = Pathname.new(data_path).expand_path
-    path.join(file).read.strip
-  rescue StandardError => e
-    puts "#{name}:#{__method__} reading data failed: #{e.message}"
-    ""
   end
 
   def self.remove_timestamp?

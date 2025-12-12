@@ -1,8 +1,12 @@
 module Development
   module Hub
+    def append_options: (Array[String] tool, ?sep: String) -> untyped
+
     def copy_item?: (String src_item, String dest_item) -> bool
 
     def filter_file?: (String file, array[untyped] patterns) -> bool
+
+    def move_item?: (String src_item, String dest_item) -> bool
 
     def run_pipeline?: (String path, array[untyped] tools) -> bool
 

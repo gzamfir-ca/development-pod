@@ -21,20 +21,20 @@ module Development
       run_pipeline?(".", [tool1, tool2])
     end
 
-    def patch_data?
+    def patch_file?
+      sb_file = "#{Development.pod_name}/src/main/resources/application.properties"
+      gb_file = "#{Development.pod_name}/build.gradle"
+      gb_prop = "\ntasks.bootRun {\n\tignoreExitValue = true\n}\n"
+      update_file?(sb_file, "a", boot_data) && update_file?(gb_file, "a", gb_prop)
+    end
+
+    def patch_path?
       path = Pathname.new(Development.data_path).expand_path
       src_item1 = path.join("boot/main/greeting").to_s
       dest_item1 = "#{Development.pod_name}/src/main/java/com/me/demo"
       src_item2 = path.join("boot/test/greeting").to_s
       dest_item2 = "#{Development.pod_name}/src/test/java/com/me/demo"
       copy_item?(src_item1, dest_item1) && copy_item?(src_item2, dest_item2)
-    end
-
-    def patch_file?
-      sb_file = "#{Development.pod_name}/src/main/resources/application.properties"
-      gb_file = "#{Development.pod_name}/build.gradle"
-      gb_prop = "\ntasks.bootRun {\n\tignoreExitValue = true\n}\n"
-      update_file?(sb_file, "a", boot_data) && update_file?(gb_file, "a", gb_prop)
     end
 
     def run_deploy?

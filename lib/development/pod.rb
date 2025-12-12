@@ -12,6 +12,14 @@ module Development
     THEN_MSG = "%s:%s not available!"
 
     # class private methods
+    def read_data(file)
+      path = Pathname.new(Development.data_path).expand_path
+      path.join(file).read.strip
+    rescue StandardError => e
+      puts "#{name}:#{__method__} reading data failed: #{e.message}"
+      ""
+    end
+
     def safe_remove?
       Dir.children(".").each do |item|
         FileUtils.rm_rf(item, verbose: true, secure: true) unless item == Development::CFG_FILE
@@ -23,15 +31,6 @@ module Development
     end
 
     # class protected methods
-    def append_options(tool, sep: "--")
-      Development.options.each do |item|
-        item.each do |key, value|
-          tool.push "#{sep}#{key}"
-          tool.push value.to_s unless value.nil? || value.to_s.empty?
-        end
-      end
-    end
-
     def test_msg(res_ok)
       res_ok ? "%s:%s succeeded!" : "%s:%s failed!"
     end
@@ -66,7 +65,7 @@ module Development
     end
 
     def ping
-      echo = Development.read_data(self.class::ECHO_FILE)
+      echo = read_data(self.class::ECHO_FILE)
       echo_fail = echo.nil? || echo.empty?
       if echo_fail
         msg = format(test_msg(!echo_fail), self.class.name, __method__)

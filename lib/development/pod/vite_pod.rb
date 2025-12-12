@@ -11,11 +11,11 @@ module Development
       run_tools?(".", [tool])
     end
 
-    def patch_data?
+    def patch_file?
       true
     end
 
-    def patch_file?
+    def patch_path?
       true
     end
 

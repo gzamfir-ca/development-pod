@@ -9,9 +9,9 @@ module Development
     THEN_MSG: String
     VERSION: String
 
-    def safe_remove?: -> bool
+    def read_data: (String file) -> String
 
-    def append_options: (Array[String] tool, ?sep: String) -> untyped
+    def safe_remove?: -> bool
 
     def test_color: (bool res_ok) -> String
 

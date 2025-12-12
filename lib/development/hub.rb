@@ -3,6 +3,15 @@
 module Development
   # provides pod helper methods
   module Hub
+    def append_options(tool, sep: "--")
+      Development.options.each do |item|
+        item.each do |key, value|
+          tool.push "#{sep}#{key}"
+          tool.push value.to_s unless value.nil? || value.to_s.empty?
+        end
+      end
+    end
+
     def copy_item?(src_item, dest_item)
       FileUtils.cp_r(src_item, dest_item, verbose: true, preserve: true)
       true
@@ -20,6 +29,14 @@ module Development
       true
     rescue StandardError => e
       puts "#{self.class.name}:#{__method__} file filtering failed: #{e.message}"
+      false
+    end
+
+    def move_item?(src_item, dest_item)
+      FileUtils.mv(src_item, dest_item, verbose: true, secure: true)
+      true
+    rescue StandardError => e
+      puts "#{name}:#{__method__} moving item failed: #{e.message}"
       false
     end
 
@@ -46,7 +63,7 @@ module Development
     end
 
     def setup_core?
-      update_options? && fetch_data? && patch_file? && patch_data?
+      update_options? && fetch_data? && patch_file? && patch_path?
     end
 
     def token_gsub?(file, original, replacement)

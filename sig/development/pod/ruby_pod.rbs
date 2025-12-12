@@ -2,9 +2,9 @@ module Development
   class RubyPod
     def fetch_data?: -> bool
 
-    def patch_data?: -> bool
-
     def patch_file?: -> bool
+
+    def patch_path?: -> bool
 
     def provide_options: -> array[untyped]
 

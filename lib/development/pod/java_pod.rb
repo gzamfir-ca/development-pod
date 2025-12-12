@@ -11,12 +11,17 @@ module Development
       run_tools?(".", [tool])
     end
 
-    def patch_data?
-      true
+    def patch_file?
+      filter_file?("settings.gradle", %w[rootProject])
     end
 
-    def patch_file?
-      filter_file?("settings.gradle", %w[include rootProject])
+    def patch_path?
+      items = %w[.gitattributes .gitignore gradle gradle.properties gradlew gradlew.bat settings.gradle]
+      res_ok = move_item?("app", Development.pod_name)
+      items.each do |item|
+        res_ok = move_item?(item, Development.pod_name) && res_ok
+      end
+      res_ok
     end
 
     def provide_options
@@ -34,12 +39,12 @@ module Development
 
     def run_deploy?
       tool = %w[gradle run --console verbose]
-      run_tools?("app", [tool])
+      run_tools?(Development.pod_name, [tool])
     end
 
     def run_update?
       tool = %w[gradle test --continuous --console verbose]
-      run_tools?("app", [tool])
+      run_tools?(Development.pod_name, [tool])
     end
   end
 end
