@@ -13,7 +13,7 @@ module Development
   CFG_PATH: String
   DEV_PATH: String
 
-  self.@profile: hash[untyped, untyped]
+  self.@profile: hash[String, String | array[hash[String, String]]]
   self.@runtime: Pod
 
   def self.runtime_class: -> Class
@@ -28,7 +28,7 @@ module Development
 
   def self.operational?: -> bool
 
-  def self.options: -> hash[untyped, untyped]
+  def self.options: -> array[hash[String, String]]
 
   def self.pod_name: -> String
 
@@ -38,6 +38,6 @@ module Development
 
   def self.setup: -> untyped
 
-  def self.update_options?: (array[untyped] data) -> bool
+  def self.update_options?: (array[hash[String, String]] data) -> bool
 
 end

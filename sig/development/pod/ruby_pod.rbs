@@ -6,7 +6,7 @@ module Development
 
     def patch_path?: -> bool
 
-    def provide_options: -> array[untyped]
+    def provide_options: -> array[hash[String, String]]
 
     def ruby_data: -> String
 

@@ -4,13 +4,13 @@ module Development
 
     def copy_item?: (String src_item, String dest_item) -> bool
 
-    def filter_file?: (String file, array[untyped] patterns) -> bool
+    def filter_file?: (String file, array[String] patterns) -> bool
 
     def move_item?: (String src_item, String dest_item) -> bool
 
-    def run_pipeline?: (String path, array[untyped] tools) -> bool
+    def run_pipeline?: (String path, array[array[String]] tools) -> bool
 
-    def run_tools?: (String path, array[untyped] tools) -> bool
+    def run_tools?: (String path, array[array[String]] tools) -> bool
 
     def setup_core?: -> bool
 

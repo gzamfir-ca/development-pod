@@ -9,7 +9,7 @@ group :development do
   gem "date", ">= 3.5.1"
   gem "erb", ">= 6.0.0"
   gem "irb", ">= 1.15.3"
-  gem "json", ">= 2.17.1"
+  gem "json", ">= 2.18.0"
   gem "parser", ">= 3.3.10.0"
   gem "psych", ">= 5.3.0"
   gem "rake", ">= 13.3.1"

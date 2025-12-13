@@ -9,7 +9,7 @@ module Development
   RUN_TIME = "runtime"
   POD_NAME = "podname"
   TOP_TIME = "created_at"
-  TOP_USER = "updated_by"
+  TOP_USER = "created_by"
   GEM_DATA = "data"
   POD_TYPE = "Pod"
   GEM_NAME = Gem.loaded_specs["development-pod"].name
@@ -54,10 +54,10 @@ module Development
   end
 
   def self.options
-    @profile[self::OPT_NAME] || {}
+    @profile[self::OPT_NAME] || []
   rescue NameError => e
     puts "#{name}:#{__method__} options not found: #{e.message}"
-    {}
+    []
   end
 
   def self.pod_name
