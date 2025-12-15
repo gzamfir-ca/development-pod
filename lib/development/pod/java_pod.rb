@@ -15,7 +15,7 @@ module Development
       gb_file = "app/build.gradle"
       gb_libs = "'com.me.libs:libext:1.0.0'"
       gb_repo = "mavenCentral()\n    mavenLocal()"
-      gb_prop = "useJUnitPlatform()\n\n    testLogging {\n        showStandardStreams = true\n    }"
+      gb_prop = "useJUnitPlatform()\n    testLogging {\n        showStandardStreams = true\n    }"
       res_ok = filter_file?("settings.gradle", %w[rootProject])
       res_ok = token_gsub?(gb_file, "libs.guava", gb_libs) && res_ok
       res_ok = token_gsub?(gb_file, "mavenCentral()", gb_repo) && res_ok
