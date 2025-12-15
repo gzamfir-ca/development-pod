@@ -6,6 +6,8 @@ module Development
 
     def filter_file?: (String file, array[String] patterns) -> bool
 
+    def git_init?: -> bool
+
     def move_item?: (String src_item, String dest_item) -> bool
 
     def run_pipeline?: (String path, array[array[String]] tools) -> bool
