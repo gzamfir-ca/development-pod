@@ -12,7 +12,10 @@ module Development
     end
 
     def patch_file?
-      filter_file?("settings.gradle", %w[rootProject])
+      res_ok = filter_file?("settings.gradle", %w[rootProject])
+      gb_file = "app/build.gradle"
+      gb_prop = "useJUnitPlatform()\n\n    testLogging {\n        showStandardStreams = true\n    }"
+      token_gsub?(gb_file, "useJUnitPlatform()", gb_prop) && res_ok
     end
 
     def patch_path?
