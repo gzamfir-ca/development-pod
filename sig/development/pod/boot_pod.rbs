@@ -8,6 +8,8 @@ module Development
 
     def fetch_data?: -> bool
 
+    def patch_build?: -> bool
+
     def patch_file?: -> bool
 
     def patch_path?: -> bool

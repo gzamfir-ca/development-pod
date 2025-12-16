@@ -21,14 +21,21 @@ module Development
       run_pipeline?(".", [tool1, tool2])
     end
 
+    def patch_build?
+      gb_file = "#{Development.pod_name}/build.gradle"
+      gb_repo = "mavenCentral()\n    mavenLocal()"
+      gb_task = "\ntasks.bootRun {\n\tignoreExitValue = true\n}\n"
+      gb_deps = "dependencies {\n\timplementation 'com.me.libs:libext:1.0.0'"
+      gb_test = "useJUnitPlatform()\n\ttestLogging {\n\t\tshowStandardStreams = true\n\t}"
+      res_ok = update_file?(gb_file, "a", gb_task)
+      res_ok = token_gsub?(gb_file, "dependencies {", gb_deps) && res_ok
+      res_ok = token_gsub?(gb_file, "mavenCentral()", gb_repo) && res_ok
+      token_gsub?(gb_file, "useJUnitPlatform()", gb_test) && res_ok
+    end
+
     def patch_file?
       sb_file = "#{Development.pod_name}/src/main/resources/application.properties"
-      gb_file = "#{Development.pod_name}/build.gradle"
-      gb_task = "\ntasks.bootRun {\n\tignoreExitValue = true\n}\n"
-      gb_test = "useJUnitPlatform()\n  testLogging {\n      showStandardStreams = true\n  }"
-      res_ok = update_file?(sb_file, "a", boot_data)
-      res_ok = update_file?(gb_file, "a", gb_task) && res_ok
-      token_gsub?(gb_file, "useJUnitPlatform()", gb_test) && res_ok
+      update_file?(sb_file, "a", boot_data) && patch_build?
     end
 
     def patch_path?
