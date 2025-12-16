@@ -12,7 +12,9 @@ module Development
     end
 
     def patch_file?
-      true
+      vt_file = "#{Development.pod_name}/vite.config.ts"
+      vt_prop = "react()],\n  server: {\n    open: (process.env.BROWSER = \"/Applications/Google Chrome.app\"),\n  },"
+      token_gsub?(vt_file, "react()],", vt_prop)
     end
 
     def patch_path?
