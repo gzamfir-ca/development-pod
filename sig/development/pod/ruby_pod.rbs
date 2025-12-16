@@ -4,6 +4,8 @@ module Development
 
     def patch_file?: -> bool
 
+    def patch_gemspec?: -> bool
+
     def patch_path?: -> bool
 
     def provide_options: -> array[hash[String, String]]
