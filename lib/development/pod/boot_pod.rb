@@ -24,8 +24,11 @@ module Development
     def patch_file?
       sb_file = "#{Development.pod_name}/src/main/resources/application.properties"
       gb_file = "#{Development.pod_name}/build.gradle"
-      gb_prop = "\ntasks.bootRun {\n\tignoreExitValue = true\n}\n"
-      update_file?(sb_file, "a", boot_data) && update_file?(gb_file, "a", gb_prop)
+      gb_task = "\ntasks.bootRun {\n\tignoreExitValue = true\n}\n"
+      gb_test = "useJUnitPlatform()\n  testLogging {\n      showStandardStreams = true\n  }"
+      res_ok = update_file?(sb_file, "a", boot_data)
+      res_ok = update_file?(gb_file, "a", gb_task) && res_ok
+      token_gsub?(gb_file, "useJUnitPlatform()", gb_test) && res_ok
     end
 
     def patch_path?
