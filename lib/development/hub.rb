@@ -33,10 +33,9 @@ module Development
     end
 
     def git_init?
-      res_ok = true
       tool = %w[git init .]
       FileUtils.cd(Development.pod_name.to_s, verbose: true) do
-        Dir.exist?(".git") ? res_ok : system?(tool, nil)
+        Dir.exist?(".git") || system?(tool, nil)
       end
     rescue StandardError => e
       puts "#{self.class.name}:#{__method__} initializing repo failed: #{e.message}"
@@ -61,10 +60,10 @@ module Development
     end
 
     def run_tools?(path, tools)
-      res_ok = true
       FileUtils.cd(path, verbose: true) do
         tools.each do |tool|
-          res_ok = system?(tool, nil) && res_ok
+          res_ok = system?(tool, nil)
+          break unless res_ok
         end
       end
     rescue StandardError => e
