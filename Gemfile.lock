@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    development-pod (1.0.1)
+    development-pod (1.0.2)
       thor (>= 1.4.0)
 
 GEM

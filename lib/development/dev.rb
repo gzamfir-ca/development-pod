@@ -65,7 +65,7 @@ module Development
   end
 
   def self.pod_name
-    @profile[self::POD_NAME]
+    @profile[self::POD_NAME].to_s.strip.gsub(/[^0-9A-Za-z.-]/, "_")
   end
 
   def self.remove_timestamp?
