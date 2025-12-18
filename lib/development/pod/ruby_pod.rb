@@ -26,14 +26,13 @@ module Development
 
     def patch_file?
       gm_file = "./#{Development.pod_name}/Gemfile"
-      sp_file = "./#{Development.pod_name}/spec/#{Development.pod_name}_spec.rb"
       rc_file = "./#{Development.pod_name}/.rubocop.yml"
       rc_prop = "AllCops:\n  NewCops: enable\n  SuggestExtensions: false"
       rc_skip = "AllCops:\n  Exclude:\n    - 'bin/*'"
       res_ok = update_file?(gm_file, "w", ruby_data)
-      res_ok = token_gsub?(sp_file, "false", "true") && res_ok
       res_ok = token_gsub?(rc_file, "AllCops:", rc_prop) && res_ok
       res_ok = token_gsub?(rc_file, "AllCops:", rc_skip) && res_ok
+      res_ok = token_gsub?(spec_file, "false", "true") && res_ok
       patch_gemspec? && res_ok
     end
 
@@ -73,6 +72,15 @@ module Development
       tool1 = %w[bundle install]
       tool2 = %w[bundle exec rerun --clear --exit --verbose rspec]
       run_tools?(Development.pod_name, [tool1, tool2])
+    end
+
+    def spec_file
+      name_parts = Development.pod_name.split("-")
+      if name_parts.length > 1
+        "./#{Development.pod_name}/spec/#{name_parts[0]}/#{name_parts[1]}_spec.rb"
+      else
+        "./#{Development.pod_name}/spec/#{Development.pod_name}_spec.rb"
+      end
     end
   end
 end

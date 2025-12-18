@@ -15,5 +15,7 @@ module Development
     def run_deploy?: -> bool
 
     def run_update?: -> bool
+
+    def spec_file: -> String
   end
 end
