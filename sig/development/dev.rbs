@@ -26,6 +26,8 @@ module Development
 
   def self.entry?: (String entry) -> bool
 
+  def self.initialize?: -> bool
+
   def self.operational?: -> bool
 
   def self.options: -> array[hash[String, String]]

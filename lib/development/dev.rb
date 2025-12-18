@@ -49,6 +49,10 @@ module Development
     @profile.to_hash.key?(entry)
   end
 
+  def self.initialize?
+    !Dir.exist?(pod_name)
+  end
+
   def self.operational?
     secured? && File.exist?(self::CFG_FILE) && !File.exist?(self::SRC_FILE)
   end

@@ -5,7 +5,7 @@ module Development
   class CorePod < Pod
     # class public methods
     def create
-      unless Development.operational?
+      unless Development.operational? && Development.initialize?
         msg = format(FAIL_MSG, self.class.name, __method__)
         puts "#{FAIL_COLOR}#{msg}#{BACK_COLOR}"
         return 1
