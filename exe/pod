@@ -2,4 +2,6 @@
 # frozen_string_literal: true
 
 require "development"
-Development::CLI.start(ARGV)
+
+# boot development pod
+Development::CLI.start
