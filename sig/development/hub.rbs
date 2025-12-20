@@ -21,5 +21,9 @@ module Development
     def update_file?: (String file, String mode, String data) -> bool
 
     def update_options?: -> bool
+
+    private
+
+    def log_exception: (Symbol | nil method_name, String message, StandardError exp) -> untyped
   end
 end

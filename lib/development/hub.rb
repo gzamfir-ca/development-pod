@@ -12,41 +12,40 @@ module Development
       end
     end
 
-    def copy_item?(src_item, dest_item)
-      FileUtils.cp_r(src_item, dest_item, verbose: true, preserve: true)
+    def copy_item?(src, dest)
+      FileUtils.cp_r(src, dest, verbose: true, preserve: true)
       true
     rescue StandardError => e
-      puts "#{name}:#{__method__} copying item failed: #{e.message}"
+      log_exception(__method__, "modifying #{dest} failed: ", e)
       false
     end
 
     def filter_file?(file, patterns)
       lines = File.readlines(file)
-      lines.select! do |line|
-        line.strip.start_with?(*patterns)
-      end
-      File.open(file, "w") { |f| f.puts lines }
+      lines.select! { |line| line.strip.start_with?(*patterns) }
+      File.write(file, lines.join)
       true
     rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} file filtering failed: #{e.message}"
+      log_exception(__method__, "modifying #{file} failed: ", e)
       false
     end
 
     def git_init?
       tool = %w[git init .]
-      FileUtils.cd(Development.pod_name.to_s, verbose: true) do
+      repo = Development.pod_name.to_s
+      FileUtils.cd(repo, verbose: true) do
         Dir.exist?(".git") || system?(tool, nil)
       end
     rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} initializing repo failed: #{e.message}"
+      log_exception(__method__, "modifying #{repo} failed: ", e)
       false
     end
 
-    def move_item?(src_item, dest_item)
-      FileUtils.mv(src_item, dest_item, verbose: true, secure: true)
+    def move_item?(src, dest)
+      FileUtils.mv(src, dest, verbose: true, secure: true)
       true
     rescue StandardError => e
-      puts "#{name}:#{__method__} moving item failed: #{e.message}"
+      log_exception(__method__, "modifying #{dest} failed: ", e)
       false
     end
 
@@ -55,19 +54,16 @@ module Development
         system?(tools[0], tools[1])
       end
     rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} running pipeline failed: #{e.message}"
+      log_exception(__method__, "executing #{tools} failed: ", e)
       false
     end
 
     def run_tools?(path, tools)
       FileUtils.cd(path, verbose: true) do
-        tools.each do |tool|
-          res_ok = system?(tool, nil)
-          break unless res_ok
-        end
+        tools.all? { |tool| system?(tool, nil) }
       end
     rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} running tools failed: #{e.message}"
+      log_exception(__method__, "executing #{tools} failed: ", e)
       false
     end
 
@@ -77,21 +73,18 @@ module Development
 
     def token_gsub?(file, original, replacement)
       content = File.read(file)
-      new_content = content.gsub(original, replacement)
-      File.write(file, new_content)
+      File.write(file, content.gsub(original, replacement))
       true
     rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} substituting token failed: #{e.message}"
+      log_exception(__method__, "modifying #{file} failed: ", e)
       false
     end
 
     def update_file?(file, mode, data)
-      File.open(file, mode) do |f|
-        f << data
-      end
+      File.open(file, mode) { |f| f << data }
       true
     rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} file updating failed: #{e.message}"
+      log_exception(__method__, "modifying #{file} failed: ", e)
       false
     end
 
@@ -99,6 +92,12 @@ module Development
       return true if Development.entry?(Development::OPT_NAME)
 
       Development.update_options?(provide_options)
+    end
+
+    private
+
+    def log_exception(method_name, message, exp)
+      puts "#{self.class.name}:#{method_name} #{message} #{exp.message}"
     end
   end
 end
