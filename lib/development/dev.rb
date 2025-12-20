@@ -32,6 +32,7 @@ module Development
   end
 
   # module public methods
+
   def self.append_timestamp?
     @profile[self::TOP_TIME] = Time.now
     retain?(self::CFG_PATH, @profile)
@@ -49,7 +50,7 @@ module Development
     @profile.to_hash.key?(entry)
   end
 
-  def self.initialize?
+  def self.inactive?
     !Dir.exist?(pod_name)
   end
 

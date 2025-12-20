@@ -1,21 +1,15 @@
 module Development
   class Pod
     ECHO_FILE: String
-    BACK_COLOR: String
+    BASE_COLOR: String
     FAIL_COLOR: String
     PASS_COLOR: String
-    THEN_COLOR: String
-    FAIL_MSG: String
-    THEN_MSG: String
+    WARN_COLOR: String
+    FAIL_LABEL: String
+    PASS_LABEL: String
+    WARN_LABEL: String
+    STOP_LABEL: String
     VERSION: String
-
-    def read_data: (String file) -> String
-
-    def safe_remove?: -> bool
-
-    def test_color: (bool res_ok) -> String
-
-    def test_msg: (bool res_ok) -> String
 
     def create: -> int
 
@@ -28,5 +22,23 @@ module Development
     def update: -> int
 
     def version: -> int
+
+    private
+
+    def execute_task: (Symbol | nil method_name, ?noop: bool) { -> bool } -> int
+
+    def log_failure: (Symbol | nil method_name) -> untyped
+
+    def log_outcome: (Symbol | nil method_name, bool res_ok, ?extra_message: String | nil) -> untyped
+
+    def log_warning: (Symbol | nil method_name) -> untyped
+
+    def read_data: (String file) -> String
+
+    def safe_remove?: -> bool
+
+    def select_color: (bool res_ok) -> String
+
+    def select_label: (bool res_ok) -> String
   end
 end

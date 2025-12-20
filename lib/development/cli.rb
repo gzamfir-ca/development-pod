@@ -55,10 +55,9 @@ module Development
       execute_command(__method__)
     end
 
-    # Class private methods
-
     private
 
+    # Class private methods
     def execute_command(command)
       puts "#{self.class.name}:#{__method__} executing #{command}..."
       exit Development.runtime.send(command || :undefined)

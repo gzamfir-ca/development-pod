@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.describe Development::Pod do
-  it "has a version number" do
-    expect(Development::Pod.new.version).not_to be nil
+  it "does return 0" do
+    expect(Development::Pod.new.version).to eq(0)
   end
 
-  it "does reply with pong" do
-    expect(Development::Pod.new.read_data(Development::Pod::ECHO_FILE)).to eq("pong")
+  it "does return 0" do
+    expect(Development::Pod.new.ping).to eq(0)
   end
 end

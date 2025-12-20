@@ -26,7 +26,7 @@ module Development
 
   def self.entry?: (String entry) -> bool
 
-  def self.initialize?: -> bool
+  def self.inactive?: -> bool
 
   def self.operational?: -> bool
 
