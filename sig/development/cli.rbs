@@ -17,5 +17,9 @@ module Development
     def update: -> untyped
 
     def version: -> untyped
+
+    private
+
+    def execute_command: (Symbol | nil command) -> untyped
   end
 end

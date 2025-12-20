@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Development
-  # provides CLI implementation
+  # Provides CLI implementation
   class CLI < Thor
-    # class private methods
+    # Class public methods
     def self.exit_on_failure?
       true
     end
@@ -13,47 +13,58 @@ module Development
       super
     end
 
-    # class public methods
-    desc "create", "creates a runtime pod"
+    desc "create", "Creates a runtime pod"
 
     def create
-      exit Development.runtime.create
+      execute_command(__method__)
     end
 
-    desc "deploy", "deploys a runtime pod"
+    desc "deploy", "Deploys a runtime pod"
 
     def deploy
-      exit Development.runtime.deploy
+      execute_command(__method__)
     end
 
-    desc "help [COMMAND]", "describes cli command"
+    desc "help [COMMAND]", "Describes cli command"
 
     def help(command = nil)
       super
     end
 
-    desc "ping", "provides a test reply"
+    desc "ping", "Provides a test reply"
 
     def ping
-      exit Development.runtime.ping
+      execute_command(__method__)
     end
 
-    desc "remove", "removes a runtime pod"
+    desc "remove", "Removes a runtime pod"
 
     def remove
-      exit Development.runtime.remove
+      execute_command(__method__)
     end
 
-    desc "update", "updates a runtime pod"
+    desc "update", "Updates a runtime pod"
 
     def update
-      exit Development.runtime.update
+      execute_command(__method__)
     end
 
-    desc "version", "prints version number"
+    desc "version", "Prints version number"
 
     def version
-      exit Development.runtime.version
+      execute_command(__method__)
+    end
+
+    # Class private methods
+
+    private
+
+    def execute_command(command)
+      puts "#{self.class.name}:#{__method__} executing #{command}..."
+      exit Development.runtime.send(command || :undefined)
+    rescue StandardError => e
+      puts "#{self.class.name}:#{__method__} command failed: #{e.message}"
+      exit 1
     end
   end
 end
