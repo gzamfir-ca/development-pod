@@ -1,11 +1,11 @@
 class Object
-  def load_file: (String file) -> untyped
+  def load_file: (String file) -> bool
 
   def load_yaml: (String file) -> untyped
 
-  def save_yaml: (String file, hash[String, String | array[hash[String, String]]] data) -> untyped
+  def save_yaml: (String file, hash[String, String | array[hash[String, String]]] data) -> bool
 
-  def shell_cmd: (String cmd) -> untyped
+  def shell_cmd: (String cmd) -> int
 
   def reload?: (?print: bool) -> bool
 

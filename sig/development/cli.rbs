@@ -1,8 +1,5 @@
 module Development
   class CLI
-    def self.exit_on_failure?: -> bool
-
-    def self.start: -> untyped
 
     def create: -> untyped
 
@@ -17,6 +14,10 @@ module Development
     def update: -> untyped
 
     def version: -> untyped
+
+    def self.exit_on_failure?: -> bool
+
+    def self.start: -> untyped
 
     private
 
