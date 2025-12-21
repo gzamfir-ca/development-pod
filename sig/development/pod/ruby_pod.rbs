@@ -16,6 +16,6 @@ module Development
 
     def run_update?: -> bool
 
-    def spec_file: -> String
+    def spec_file: -> Pathname
   end
 end

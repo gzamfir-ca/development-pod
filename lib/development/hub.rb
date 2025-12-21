@@ -22,9 +22,9 @@ module Development
     end
 
     def filter_file?(file, patterns)
-      lines = File.readlines(file)
+      lines = file.readlines
       lines.select! { |line| line.strip.start_with?(*patterns) }
-      File.write(file, lines.join)
+      file.write(lines.join)
       true
     rescue StandardError => e
       log_exception(__method__, "modifying #{file} failed: ", e)
@@ -33,9 +33,9 @@ module Development
 
     def git_init?
       tool = %w[git init .]
-      repo = Development.pod_name.to_s
+      repo = Pathname(Development.pod_name.to_s).expand_path
       FileUtils.cd(repo, verbose: true) do
-        Dir.exist?(".git") || system?(tool, nil)
+        repo.join(".git").exist? || system?(tool, nil)
       end
     rescue StandardError => e
       log_exception(__method__, "modifying #{repo} failed: ", e)
@@ -73,8 +73,8 @@ module Development
     end
 
     def token_gsub?(file, original, replacement)
-      content = File.read(file)
-      File.write(file, content.gsub(original, replacement))
+      content = file.read
+      file.write(content.gsub(original, replacement))
       true
     rescue StandardError => e
       log_exception(__method__, "modifying #{file} failed: ", e)
@@ -82,7 +82,7 @@ module Development
     end
 
     def update_file?(file, mode, data)
-      File.open(file, mode) { |f| f << data }
+      file.open(mode) { |f| f << data }
       true
     rescue StandardError => e
       log_exception(__method__, "modifying #{file} failed: ", e)

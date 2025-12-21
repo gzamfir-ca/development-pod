@@ -2,23 +2,23 @@ module Development
   module Hub
     def append_options: (Array[String] tool, ?sep: String) -> untyped
 
-    def copy_item?: (String src_item, String dest_item) -> bool
+    def copy_item?: (Pathname src, Pathname dest) -> bool
 
-    def filter_file?: (String file, array[String] patterns) -> bool
+    def filter_file?: (Pathname file, array[String] patterns) -> bool
 
     def git_init?: -> bool
 
-    def move_item?: (String src_item, String dest_item) -> bool
+    def move_item?: (Pathname src, Pathname dest) -> bool
 
-    def run_pipeline?: (String path, array[array[String]] tools) -> bool
+    def run_pipeline?: (Pathname path, array[array[String]] tools) -> bool
 
-    def run_tools?: (String path, array[array[String]] tools) -> bool
+    def run_tools?: (Pathname path, array[array[String]] tools) -> bool
 
     def setup_core?: -> bool
 
-    def token_gsub?: (String file, String original, String replacement) -> bool
+    def token_gsub?: (Pathname file, String original, String replacement) -> bool
 
-    def update_file?: (String file, String mode, String data) -> bool
+    def update_file?: (Pathname file, String mode, String data) -> bool
 
     def update_options?: -> bool
 
