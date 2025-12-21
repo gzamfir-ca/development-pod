@@ -16,10 +16,6 @@ module Development
   self.@profile: hash[String, String | array[hash[String, String]]]
   self.@runtime: Pod
 
-  def self.runtime_class: -> Class
-
-  def self.secured?: -> bool
-
   def self.append_timestamp?: -> bool
 
   def self.data_path: -> String
@@ -41,5 +37,15 @@ module Development
   def self.setup: -> untyped
 
   def self.update_options?: (array[hash[String, String]] data) -> bool
+
+  private
+
+  def self.log_exception: (Symbol | nil method_name, String message, StandardError exp) -> untyped
+
+  def self.retain_profile?: -> bool
+
+  def self.runtime_class: -> Class
+
+  def self.secured?: -> bool
 
 end

@@ -45,8 +45,6 @@ module Development
       0
     end
 
-    private
-
     # Class private methods
     def execute_task(method_name, noop: false)
       unless Development.operational?
@@ -105,5 +103,8 @@ module Development
     def select_label(res_ok)
       res_ok ? PASS_LABEL : STOP_LABEL
     end
+
+    private(:execute_task, :log_failure, :log_outcome, :log_warning, :read_data,
+            :safe_remove?, :select_color, :select_label)
   end
 end

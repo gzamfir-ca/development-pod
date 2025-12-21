@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 module Development
-  # provides pod helper methods
+  # Provides pod helper methods
   module Hub
+    # Module public methods
     def append_options(tool, sep: "--")
       Development.options.each do |item|
         item.each do |key, value|
@@ -94,10 +95,11 @@ module Development
       Development.update_options?(provide_options)
     end
 
-    private
-
+    # Module private methods
     def log_exception(method_name, message, exp)
       puts "#{self.class.name}:#{method_name} #{message} #{exp.message}"
     end
+
+    private(:log_exception)
   end
 end

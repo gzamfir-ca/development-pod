@@ -4,15 +4,6 @@ module Development
   # Provides CLI implementation
   class CLI < Thor
     # Class public methods
-    def self.exit_on_failure?
-      true
-    end
-
-    def self.start(given_args = ARGV, config = {})
-      Development.setup
-      super
-    end
-
     desc "create", "Creates a runtime pod"
 
     def create
@@ -55,15 +46,26 @@ module Development
       execute_command(__method__)
     end
 
-    private
+    no_commands do
+      def self.exit_on_failure?
+        true
+      end
 
-    # Class private methods
-    def execute_command(command)
-      puts "#{self.class.name}:#{__method__} executing #{command}..."
-      exit Development.runtime.send(command || :undefined)
-    rescue StandardError => e
-      puts "#{self.class.name}:#{__method__} command failed: #{e.message}"
-      exit 1
+      def self.start(given_args = ARGV, config = {})
+        Development.setup
+        super
+      end
+
+      # Class private methods
+      def execute_command(command)
+        puts "#{self.class.name}:#{__method__} executing #{command}..."
+        exit Development.runtime.send(command || :undefined)
+      rescue StandardError => e
+        puts "#{self.class.name}:#{__method__} command failed: #{e.message}"
+        exit 1
+      end
+
+      private(:execute_command)
     end
   end
 end
