@@ -1,12 +1,12 @@
 module Development
   class BootPod
-    GS_FILE: String
-    GB_FILE: String
-    SB_FILE: String
+    private
 
     def boot_data: -> String
 
     def fetch_data?: -> bool
+
+    def patch_attributes?: -> bool
 
     def patch_build?: -> bool
 

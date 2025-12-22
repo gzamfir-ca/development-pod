@@ -1,5 +1,7 @@
 module Development
   class VitePod
+    private
+
     def fetch_data?: -> bool
 
     def patch_file?: -> bool

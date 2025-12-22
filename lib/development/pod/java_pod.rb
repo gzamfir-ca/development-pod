@@ -14,24 +14,32 @@ module Development
       run_tools?(path, [tool])
     end
 
+    def patch_build?
+      substitutions = {
+        "libs.guava" => "'com.me.libs:libext:1.0.0'",
+        "mavenCentral()" => "mavenCentral()\n    mavenLocal()",
+        "useJUnitPlatform()" => "useJUnitPlatform()\n    testLogging {\n        showStandardStreams = true\n    }"
+      }
+      file = Pathname.new("app/build.gradle").expand_path
+      substitutions.all? { |search, replace| token_gsub?(file, search, replace) }
+    end
+
     def patch_file?
-      gb_file = Pathname.new("app/build.gradle").expand_path
-      gs_file = Pathname.new("settings.gradle").expand_path
-      gb_libs = "'com.me.libs:libext:1.0.0'"
-      gb_repo = "mavenCentral()\n    mavenLocal()"
-      gb_prop = "useJUnitPlatform()\n    testLogging {\n        showStandardStreams = true\n    }"
-      filter_file?(gs_file, %w[rootProject]) &&
-        token_gsub?(gb_file, "libs.guava", gb_libs) &&
-        token_gsub?(gb_file, "mavenCentral()", gb_repo) &&
-        token_gsub?(gb_file, "useJUnitPlatform()", gb_prop)
+      file = Pathname.new("settings.gradle").expand_path
+      filter_file?(file, %w[rootProject]) && patch_build?
+    end
+
+    def patch_items?
+      dest = Pathname.new(Development.pod_name).expand_path
+      items = %w[.gitattributes .gitignore gradle gradle.properties gradlew gradlew.bat settings.gradle]
+      paths = items.map { |item| Pathname(item).expand_path }
+      paths.all? { |path| move_item?(path, dest) }
     end
 
     def patch_path?
-      items = %w[.gitattributes .gitignore gradle gradle.properties gradlew gradlew.bat settings.gradle]
       src = Pathname.new("app").expand_path
       dest = Pathname.new(Development.pod_name).expand_path
-      paths = items.map { |item| Pathname(item).expand_path }
-      move_item?(src, dest) && paths.all? { |path| move_item?(path, dest) }
+      move_item?(src, dest) && patch_items?
     end
 
     def provide_options

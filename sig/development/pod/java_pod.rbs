@@ -1,8 +1,14 @@
 module Development
   class JavaPod
+    private
+
     def fetch_data?: -> bool
 
+    def patch_build?: -> bool
+
     def patch_file?: -> bool
+
+    def patch_items?: -> bool
 
     def patch_path?: -> bool
 

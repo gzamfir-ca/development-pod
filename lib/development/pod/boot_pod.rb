@@ -24,16 +24,20 @@ module Development
       run_pipeline?(path, [tool1, tool2])
     end
 
+    def patch_attributes?
+      substitutions = {
+        "dependencies {" => "dependencies {\n\timplementation 'com.me.libs:libext:1.0.0'",
+        "mavenCentral()" => "mavenCentral()\n    mavenLocal()",
+        "useJUnitPlatform()" => "useJUnitPlatform()\n\ttestLogging {\n\t\tshowStandardStreams = true\n\t}"
+      }
+      file = Pathname.new("#{Development.pod_name}/build.gradle").expand_path
+      substitutions.all? { |search, replace| token_gsub?(file, search, replace) }
+    end
+
     def patch_build?
-      gb_file = Pathname.new("#{Development.pod_name}/build.gradle").expand_path
-      gb_repo = "mavenCentral()\n    mavenLocal()"
-      gb_task = "\ntasks.bootRun {\n\tignoreExitValue = true\n}\n"
-      gb_deps = "dependencies {\n\timplementation 'com.me.libs:libext:1.0.0'"
-      gb_test = "useJUnitPlatform()\n\ttestLogging {\n\t\tshowStandardStreams = true\n\t}"
-      update_file?(gb_file, "a", gb_task) &&
-        token_gsub?(gb_file, "dependencies {", gb_deps) &&
-        token_gsub?(gb_file, "mavenCentral()", gb_repo) &&
-        token_gsub?(gb_file, "useJUnitPlatform()", gb_test)
+      file = Pathname.new("#{Development.pod_name}/build.gradle").expand_path
+      attribute = "\ntasks.bootRun {\n\tignoreExitValue = true\n}\n"
+      update_file?(file, "a", attribute) && patch_attributes?
     end
 
     def patch_file?
@@ -50,6 +54,16 @@ module Development
       copy_item?(src1, dest1) && copy_item?(src2, dest2)
     end
 
+    def provide_options
+      [{ "d" => "type=gradle-project" },
+       { "d" => "dependencies=web,devtools,actuator" },
+       { "d" => "baseDir=#{Development.pod_name}" },
+       { "d" => "groupId=com.me" },
+       { "d" => "javaVersion=25" },
+       { "d" => "applicationName=App" },
+       { "d" => "packageName=com.me.demo" }]
+    end
+
     def run_deploy?
       tool = %w[gradle bootRun --console verbose]
       path = Pathname.new(Development.pod_name).expand_path
@@ -60,16 +74,6 @@ module Development
       tool = %w[gradle test --continuous --console verbose]
       path = Pathname.new(Development.pod_name).expand_path
       run_tools?(path, [tool])
-    end
-
-    def provide_options
-      [{ "d" => "type=gradle-project" },
-       { "d" => "dependencies=web,devtools,actuator" },
-       { "d" => "baseDir=#{Development.pod_name}" },
-       { "d" => "groupId=com.me" },
-       { "d" => "javaVersion=25" },
-       { "d" => "applicationName=App" },
-       { "d" => "packageName=com.me.demo" }]
     end
   end
 end

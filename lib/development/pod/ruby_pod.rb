@@ -14,35 +14,52 @@ module Development
       run_tools?(path, [tool])
     end
 
-    def patch_gemspec?
-      gs_file = Pathname.new("./#{Development.pod_name}/#{Development.pod_name}.gemspec").expand_path
-      gs_desc = "#{Development.pod_name} is a ruby gem"
-      gs_abre = "#{Development.pod_name} does something"
-      gs_prop = "https://github.com/gzamfir-ca/#{Development.pod_name}"
-      gs_serv = "https://rubygems.org"
-      token_gsub?(gs_file, "TODO: Write a short summary, because RubyGems requires one.", gs_abre) &&
-        token_gsub?(gs_file, "TODO: Write a longer description or delete this line.", gs_desc) &&
-        token_gsub?(gs_file, "TODO: Put your gem's website or public repo URL here.", gs_prop) &&
-        token_gsub?(gs_file, "TODO: Put your gem's public repo URL here.", gs_prop) &&
-        token_gsub?(gs_file, "TODO: Set to your gem server 'https://example.com'", gs_serv)
+    def patch_attributes?
+      patch_gemspec? && patch_spec?
+    end
+
+    def patch_build?
+      patch_rubocop? && patch_attributes?
     end
 
     def patch_file?
-      gm_file = Pathname.new("./#{Development.pod_name}/Gemfile").expand_path
-      rc_file = Pathname.new("./#{Development.pod_name}/.rubocop.yml").expand_path
-      rc_prop = "AllCops:\n  NewCops: enable\n  SuggestExtensions: false"
-      rc_skip = "AllCops:\n  Exclude:\n    - 'bin/*'"
-      update_file?(gm_file, "w", ruby_data) &&
-        token_gsub?(rc_file, "AllCops:", rc_prop) &&
-        token_gsub?(rc_file, "AllCops:", rc_skip) &&
-        token_gsub?(spec_file, "false", "true") &&
-        patch_gemspec?
+      file = Pathname.new("./#{Development.pod_name}/Gemfile").expand_path
+      update_file?(file, "w", ruby_data) && patch_build?
+    end
+
+    def patch_gemspec?
+      substitutions = {
+        "TODO: Write a short summary, because RubyGems requires one." => "#{Development.pod_name} does something",
+        "TODO: Write a longer description or delete this line." => "#{Development.pod_name} is a ruby gem",
+        "TODO: Put your gem's website or public repo URL here." => "https://github.com/gzamfir-ca/#{Development.pod_name}",
+        "TODO: Put your gem's public repo URL here." => "https://github.com/gzamfir-ca/#{Development.pod_name}",
+        "TODO: Set to your gem server 'https://example.com'" => "https://rubygems.org"
+      }
+      file = Pathname.new("./#{Development.pod_name}/#{Development.pod_name}.gemspec").expand_path
+      substitutions.all? { |search, replace| token_gsub?(file, search, replace) }
     end
 
     def patch_path?
       tool = %w[bundle exec rake rubocop:autocorrect_all]
       path = Pathname.new(Development.pod_name).expand_path
       run_tools?(path, [tool])
+    end
+
+    def patch_rubocop?
+      substitutions = {
+        "AllCops:" => "AllCops:\n  NewCops: enable\n  SuggestExtensions: false",
+        "AllCops:\n  NewCops:" => "AllCops:\n  Exclude:\n    - 'bin/*'\n  NewCops:"
+      }
+      file = Pathname.new("./#{Development.pod_name}/.rubocop.yml").expand_path
+      substitutions.all? { |search, replace| token_gsub?(file, search, replace) }
+    end
+
+    def patch_spec?
+      tokens = Development.pod_name.split("-")
+      spec = "./#{Development.pod_name}/spec/#{Development.pod_name}_spec.rb"
+      spec = "./#{Development.pod_name}/spec/#{tokens[0]}/#{tokens[1]}_spec.rb" if tokens.length > 1
+      file = Pathname.new(spec).expand_path
+      token_gsub?(file, "false", "true")
     end
 
     def provide_options
@@ -78,13 +95,6 @@ module Development
       tool2 = %w[bundle exec rerun --clear --exit --verbose rspec]
       path = Pathname.new(Development.pod_name).expand_path
       run_tools?(path, [tool1, tool2])
-    end
-
-    def spec_file
-      tokens = Development.pod_name.split("-")
-      spec_file = "./#{Development.pod_name}/spec/#{Development.pod_name}_spec.rb"
-      spec_file = "./#{Development.pod_name}/spec/#{tokens[0]}/#{tokens[1]}_spec.rb" if tokens.length > 1
-      Pathname.new(spec_file).expand_path
     end
   end
 end

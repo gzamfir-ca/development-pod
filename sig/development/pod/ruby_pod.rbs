@@ -1,12 +1,22 @@
 module Development
   class RubyPod
+    private
+
     def fetch_data?: -> bool
+
+    def patch_attributes?: -> bool
+
+    def patch_build?: -> bool
 
     def patch_file?: -> bool
 
     def patch_gemspec?: -> bool
 
     def patch_path?: -> bool
+
+    def patch_rubocop?: -> bool
+
+    def patch_spec?: -> bool
 
     def provide_options: -> array[hash[String, String]]
 
@@ -15,7 +25,5 @@ module Development
     def run_deploy?: -> bool
 
     def run_update?: -> bool
-
-    def spec_file: -> Pathname
   end
 end
