@@ -31,9 +31,7 @@ module Development
     end
 
     def remove
-      execute_task(__method__) do
-        safe_remove? && Development.remove_timestamp?
-      end
+      execute_task(__method__) { safe_remove? && Development.remove_timestamp? }
     end
 
     def update

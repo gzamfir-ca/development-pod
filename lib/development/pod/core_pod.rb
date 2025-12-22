@@ -5,25 +5,15 @@ module Development
   class CorePod < Pod
     # Class public methods
     def create
-      execute_task(__method__) do
-        if Development.inactive?
-          setup_core? && Development.append_timestamp?
-        else
-          false
-        end
-      end
+      execute_task(__method__) { Development.inactive? && setup_core? && Development.append_timestamp? }
     end
 
     def deploy
-      execute_task(__method__) do
-        run_deploy?
-      end
+      execute_task(__method__) { run_deploy? }
     end
 
     def update
-      execute_task(__method__) do
-        run_update?
-      end
+      execute_task(__method__) { run_update? }
     end
   end
 end
