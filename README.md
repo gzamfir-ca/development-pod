@@ -10,7 +10,7 @@ After checking out the repo, run `bin/setup` to install all the required depende
 
 Create a folder /my/own/path/ where you plan to start a new development project. Once there create a new YAML file called _pod.yml_ with the following content:
 
-```
+```yaml
 ---
 podname: mypodname
 runtime: myruntime
@@ -25,7 +25,7 @@ where _mypodname_ is the name of the directory under which the development envir
 
 Once you have created _pod.yml_ run `pod ping` to test your local installation, with the expected result:
 
-```
+```shell
 ❯ pod ping
 Object:upload! uploading: /my/own/path/pod.yml
 Development::CLI:execute_command executing ping...
@@ -34,7 +34,7 @@ pong
 
 Next run `pod` to get a description of the available _pod_ commands:
 
-```
+```shell
 ❯ pod
 Object:upload! uploading: /my/own/path/pod.yml
 Commands:
@@ -53,7 +53,7 @@ After checking out the repo, run `bin/setup` to install all the required depende
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/gzamfir-ca/development-pod.
+Bug reports and pull requests are welcome on GitHub at <https://github.com/gzamfir-ca/development-pod>.
 
 ## License
 
