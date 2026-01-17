@@ -34,6 +34,12 @@ module Development
       execute_command(__method__)
     end
 
+    desc "tree", "Tree for all commands"
+
+    def tree
+      build_command_tree(self.class, "")
+    end
+
     desc "update", "Updates a runtime pod"
 
     def update

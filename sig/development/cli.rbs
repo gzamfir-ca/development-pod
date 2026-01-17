@@ -11,6 +11,8 @@ module Development
 
     def remove: -> untyped
 
+    def tree: -> untyped
+
     def update: -> untyped
 
     def version: -> untyped
