@@ -25,7 +25,7 @@
     <orderEntry type="library" scope="PROVIDED" name="listen (v3.10.0, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="logger (v1.7.0, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="parallel (v1.27.0, rbenv: 4.0.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="parser (v3.3.10.1, rbenv: 4.0.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="parser (v3.3.10.2, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pp (v0.6.3, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="prettyprint (v0.2.0, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="prism (v1.9.0, rbenv: 4.0.1) [gem]" level="application" />

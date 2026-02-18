@@ -16,6 +16,8 @@ module Development
 
     def patch_build?
       substitutions = {
+        "testImplementation libs.junit.jupiter" => "testImplementation('org.junit.jupiter:junit-jupiter:6.0.3')\n\
+    testImplementation('org.hamcrest:hamcrest:3.0')",
         "libs.guava" => "'com.me.libs:libext:1.0.0'",
         "mavenCentral()" => "mavenCentral()\n    mavenLocal()",
         "useJUnitPlatform()" => "useJUnitPlatform()\n    testLogging {\n        showStandardStreams = true\n    }"

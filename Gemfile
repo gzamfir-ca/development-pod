@@ -13,7 +13,7 @@ group :development do
   gem "irb", ">= 1.17.0"
   gem "json", ">= 2.18.1"
   gem "listen", ">= 3.10.0"
-  gem "parser", ">= 3.3.10.1"
+  gem "parser", ">= 3.3.10.2"
   gem "pp", ">= 0.6.3"
   gem "prettyprint", ">= 0.2.0"
   gem "prism", ">= 1.9.0"
