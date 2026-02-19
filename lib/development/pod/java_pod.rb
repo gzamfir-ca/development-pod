@@ -22,7 +22,7 @@ module Development
       <<~LIBS_DATA.chomp
         implementation 'com.me.libs:libext:1.0.0'
 
-            mockitoAgent 'org.mockito:mockito-core:5.17.0'
+            mockitoAgent 'org.mockito:mockito-core:5.21.0'
       LIBS_DATA
     end
 
