@@ -21,7 +21,6 @@ module Development
     def libs_data
       <<~LIBS_DATA.chomp
         implementation 'com.me.libs:libext:1.0.0'
-
             mockitoAgent 'org.mockito:mockito-core:5.21.0'
       LIBS_DATA
     end
@@ -111,9 +110,9 @@ module Development
     def sub_map
       {
         "dependencies {" => "#{conf_data}\n\ndependencies {",
-        "    implementation libs.guava" => "    #{libs_data}",
+        "\n    implementation libs.guava" => "    #{libs_data}",
         "    mavenCentral()" => "    #{repo_data}",
-        "    testImplementation libs.junit.jupiter" => "    #{test_data}",
+        "    testImplementation libs.junit.jupiter\n" => "    #{test_data}",
         "    useJUnitPlatform()" => "    #{unit_data}"
       }
     end
