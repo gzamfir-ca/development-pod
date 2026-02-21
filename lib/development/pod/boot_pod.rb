@@ -17,6 +17,43 @@ module Development
       BOOT_DATA
     end
 
+    def conf_data
+      <<~CONF_DATA.chomp
+        configurations {
+        \tmockitoAgent {
+        \t\ttransitive = false
+        \t}
+        }
+      CONF_DATA
+    end
+
+    def libs_data
+      <<~LIBS_DATA.chomp
+        implementation 'com.me.libs:libext:1.0.0'
+        \tmockitoAgent 'org.mockito:mockito-core:5+'
+      LIBS_DATA
+    end
+
+    def repo_data
+      <<~REPO_DATA.chomp
+        mavenCentral()
+        \tmavenLocal()
+      REPO_DATA
+    end
+
+    def unit_data
+      <<~UNIT_DATA.chomp
+        useJUnitPlatform()
+        \tjvmArgs(
+        \t\t"-javaagent:${configurations.mockitoAgent.singleFile}",
+        \t\t"-Xshare:off"
+        \t)
+        \ttestLogging {
+        \t\tshowStandardStreams = true
+        \t}
+      UNIT_DATA
+    end
+
     def fetch_data?
       tool1 = %w[curl https://start.spring.io/starter.tgz].tap { |t| append_options(t, sep: "-") }
       tool2 = %w[tar -xzvf -]
@@ -25,13 +62,8 @@ module Development
     end
 
     def patch_attributes?
-      substitutions = {
-        "dependencies {" => "dependencies {\n\timplementation 'com.me.libs:libext:1.0.0'",
-        "mavenCentral()" => "mavenCentral()\n    mavenLocal()",
-        "useJUnitPlatform()" => "useJUnitPlatform()\n\ttestLogging {\n\t\tshowStandardStreams = true\n\t}"
-      }
       file = Pathname.new("#{Development.pod_name}/build.gradle").expand_path
-      substitutions.all? { |search, replace| token_gsub?(file, search, replace) }
+      sub_map.all? { |search, replace| token_gsub?(file, search, replace) }
     end
 
     def patch_build?
@@ -74,6 +106,14 @@ module Development
       tool = %w[gradle test --continuous --console verbose]
       path = Pathname.new(Development.pod_name).expand_path
       run_tools?(path, [tool])
+    end
+
+    def sub_map
+      {
+        "dependencies {" => "#{conf_data}\n\ndependencies {\n\t#{libs_data}",
+        "\tmavenCentral()" => "\t#{repo_data}",
+        "\tuseJUnitPlatform()" => "\t#{unit_data}"
+      }
     end
   end
 end

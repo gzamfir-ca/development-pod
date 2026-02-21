@@ -4,6 +4,14 @@ module Development
 
     def boot_data: -> String
 
+    def conf_data: -> String
+
+    def libs_data: -> String
+
+    def repo_data: -> String
+
+    def unit_data: -> String
+
     def fetch_data?: -> bool
 
     def patch_attributes?: -> bool
@@ -19,5 +27,7 @@ module Development
     def run_deploy?: -> bool
 
     def run_update?: -> bool
+
+    def sub_map: -> hash[String, String]
   end
 end
