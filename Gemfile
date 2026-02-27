@@ -5,9 +5,9 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
-  gem "bundler", ">= 4.0.6"
+  gem "bundler", ">= 4.0.7"
   gem "date", ">= 3.5.1"
-  gem "erb", ">= 6.0.1"
+  gem "erb", ">= 6.0.2"
   gem "ffi", ">= 1.17.3"
   gem "io-console", ">= 0.8.2"
   gem "irb", ">= 1.17.0"
@@ -26,7 +26,7 @@ group :development do
   gem "rspec", ">= 3.13.2"
   gem "rspec-mocks", ">= 3.13.7"
   gem "rspec-support", ">= 3.13.7"
-  gem "rubocop", ">= 1.84.2"
+  gem "rubocop", ">= 1.85.0"
   gem "rubocop-ast", ">= 1.49.0"
   gem "stringio", ">= 3.2.0"
   gem "tsort", ">= 0.2.0"
