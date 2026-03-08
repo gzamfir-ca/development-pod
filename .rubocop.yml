@@ -1,10 +1,11 @@
 AllCops:
   NewCops: enable
   SuggestExtensions: false
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 4.0
 
   Exclude:
-    - 'bin/*'
+    - "bin/*"
+    - "Gemfile"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

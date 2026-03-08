@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = "a development pod for various tools and utilities"
   spec.homepage = "https://github.com/gzamfir-ca/development-pod"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.2.0"
+  spec.required_ruby_version = ">= 4.0.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage
