@@ -3,10 +3,12 @@
     <words>
       <w>Xshare</w>
       <w>datadir</w>
+      <w>fsevent</w>
       <w>gzamfir</w>
       <w>podname</w>
       <w>prettyprint</w>
       <w>rubo</w>
+      <w>rubocop</w>
       <w>shellwords</w>
     </words>
   </dictionary>
