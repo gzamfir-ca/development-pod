@@ -40,9 +40,10 @@ module Development
     end
 
     def patch_path?
-      tool = %w[bundle exec rake rubocop:autocorrect_all]
+      tool1 = %w[bundle exec rake rubocop:autocorrect_all]
+      tool2 = %w[bundle install]
       path = Pathname.new(Development.pod_name).expand_path
-      run_tools?(path, [tool])
+      run_tools?(path, [tool1, tool2])
     end
 
     def patch_rubocop?
@@ -91,10 +92,9 @@ module Development
     end
 
     def run_update?
-      tool1 = %w[bundle install]
-      tool2 = %w[bundle exec rerun --clear --exit --verbose rspec]
+      tool = %w[bundle exec rerun --clear --exit --verbose rspec]
       path = Pathname.new(Development.pod_name).expand_path
-      run_tools?(path, [tool1, tool2])
+      run_tools?(path, [tool])
     end
   end
 end
