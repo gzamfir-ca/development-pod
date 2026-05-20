@@ -92,7 +92,7 @@ module Development
     end
 
     def run_update?
-      tool = %w[bundle exec rerun --clear --exit --verbose rspec]
+      tool = %w[bundle exec rerun --clear --exit rspec]
       path = Pathname.new(Development.pod_name).expand_path
       run_tools?(path, [tool])
     end
