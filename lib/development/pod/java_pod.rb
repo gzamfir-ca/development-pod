@@ -20,7 +20,7 @@ module Development
 
     def libs_data
       <<~LIBS_DATA.chomp
-        implementation 'com.me.libs:libext:1.0.0'
+        implementation 'com.me.libs:libext:1.0.6'
             mockitoAgent 'org.mockito:mockito-core:5.21.0'
       LIBS_DATA
     end
