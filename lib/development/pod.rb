@@ -23,7 +23,7 @@ module Development
     end
 
     def ping
-      echo = read_data(self.class::ECHO_FILE)
+      echo = read_data(Pod::ECHO_FILE)
       echo_fail = echo.nil? || echo.empty?
 
       log_outcome(__method__, !echo_fail, extra_message: echo)
@@ -39,7 +39,7 @@ module Development
     end
 
     def version
-      log_outcome(__method__, true, extra_message: "version: #{self.class::VERSION}")
+      log_outcome(__method__, true, extra_message: "version: #{Pod::VERSION}")
       0
     end
 

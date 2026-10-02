@@ -5,11 +5,18 @@
       <w>datadir</w>
       <w>fsevent</w>
       <w>gzamfir</w>
+      <w>ndependencies</w>
       <w>podname</w>
       <w>prettyprint</w>
       <w>rubo</w>
       <w>rubocop</w>
       <w>shellwords</w>
+      <w>tignoreExitValue</w>
+      <w>tjvmArgs</w>
+      <w>tmockitoAgent</w>
+      <w>tshowStandardStreams</w>
+      <w>ttestLogging</w>
+      <w>ttransitive</w>
     </words>
   </dictionary>
 </component>
